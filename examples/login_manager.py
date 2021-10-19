@@ -1,6 +1,6 @@
 import flask
 import flask_login
-from flask_paseto import PasetoLoginManager
+from flask_paseto_extended import PasetoLoginManager
 
 app = flask.Flask(__name__)
 app.secret_key = 'super secret string'

@@ -3,7 +3,7 @@ include CHANGES.rst
 include CODE_OF_CONDUCT.md
 include LICENSE
 include tox.ini
-recursive-include flask_paseto *.typed
+include flask_paseto_extended/py.typed
 graft docs
 prune docs/_build
 graft tests

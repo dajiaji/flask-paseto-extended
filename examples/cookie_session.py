@@ -1,7 +1,7 @@
 import flask
 import flask_login
 from flask_login import LoginManager
-from flask_paseto import PasetoCookieSessionInterface
+from flask_paseto_extended import PasetoCookieSessionInterface
 
 app = flask.Flask(__name__)
 app.secret_key = 'super secret string'
