@@ -1,4 +1,5 @@
-from .paseto_login_manager import PasetoLoginManager
+from .cookie_session import PasetoCookieSessionInterface
+from .login_manager import PasetoLoginManager
 
 __version__ = "0.0.1"
 __title__ = "Flask PASETO Extended"
@@ -11,5 +12,6 @@ __email__ = "ajitomi@gmail.com"
 __license__ = "MIT"
 __copyright__ = "Copyright 2021 AJITOMI Daisuke"
 __all__ = [
+    "PasetoCookieSessionInterface",
     "PasetoLoginManager",
 ]
