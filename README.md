@@ -36,7 +36,7 @@ from flask_paseto_extended import PasetoCookieSessionInterface
 app = flask.Flask(__name__)
 app.secret_key = 'super secret string'
 
-# Use PASETO("v4" by default) for cookie sessions as follows:
+# Use PASETO("v4" by default) for cookie sessions.
 app.session_interface = PasetoCookieSessionInterface()
 ```
 
