@@ -1,6 +1,7 @@
-from flask import current_app
 import pyseto
+from flask import current_app
 from pyseto import Key
+
 
 def encode_cookie(payload, key=None):
 
