@@ -34,7 +34,7 @@ import flask
 from flask_paseto_extended import PasetoCookieSessionInterface
 
 app = flask.Flask(__name__)
-app.secret_key = 'super secret string'
+app.secret_key = "super secret string"
 
 # Use PASETO("v4" by default) for cookie sessions as follows:
 app.session_interface = PasetoCookieSessionInterface()
@@ -53,7 +53,7 @@ import flask_login
 from flask_paseto_extended import PasetoLoginManager
 
 app = flask.Flask(__name__)
-app.secret_key = 'super secret string'
+app.secret_key = "super secret string"
 
 login_manager = PasetoLoginManager(app)
 ```
