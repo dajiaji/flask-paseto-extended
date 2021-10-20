@@ -1,14 +1,14 @@
 from typing import Optional
+
+import pyseto
 from flask import Flask, Request, Response
 from flask.json.tag import TaggedJSONSerializer
-from flask.sessions import SessionInterface, SessionMixin, SecureCookieSession
-import pyseto
+from flask.sessions import SecureCookieSession, SessionInterface, SessionMixin
 from pyseto import Key
 
 
 class PasetoCookieSessionInterface(SessionInterface):
-
-    def __init__(self, paseto_version: int=4):
+    def __init__(self, paseto_version: int = 4):
 
         if not isinstance(paseto_version, int) or paseto_version not in [1, 2, 3, 4]:
             raise ValueError(f"Invalid PASETO version: {paseto_version}")
@@ -16,12 +16,11 @@ class PasetoCookieSessionInterface(SessionInterface):
         self._paseto_version = paseto_version
         self._serializer = TaggedJSONSerializer()
 
-
     def open_session(self, app: Flask, request: Request) -> Optional[SessionMixin]:
 
         if not app.secret_key:
             return None
-        
+
         val = request.cookies.get(self.get_cookie_name(app))
         if not val:
             return SecureCookieSession()
@@ -36,9 +35,11 @@ class PasetoCookieSessionInterface(SessionInterface):
             return SecureCookieSession(self._serializer.loads(serialized_session))
         except Exception:
             return SecureCookieSession()
-    
-    def save_session(self, app: Flask, session: SessionMixin, response: Response) -> None:
-        
+
+    def save_session(
+        self, app: Flask, session: SessionMixin, response: Response
+    ) -> None:
+
         name = self.get_cookie_name(app)
         domain = self.get_cookie_domain(app)
         path = self.get_cookie_path(app)

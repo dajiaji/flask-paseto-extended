@@ -1,26 +1,21 @@
-from flask import (
-    current_app,
-    session,
-)
+from datetime import datetime, timedelta
 
+from flask import current_app, session
 from flask_login import (
-    COOKIE_NAME,
     COOKIE_DURATION,
-    COOKIE_SECURE,
     COOKIE_HTTPONLY,
+    COOKIE_NAME,
+    COOKIE_SECURE,
     LoginManager,
     user_loaded_from_cookie,
 )
 
-from datetime import datetime, timedelta
-
-from .utils import encode_cookie, decode_cookie
+from .utils import decode_cookie, encode_cookie
 
 COOKIE_SAMESITE = None
 
 
 class PasetoLoginManager(LoginManager):
-
     def init_app(self, app, add_context_processor=True):
 
         super().init_app(app, add_context_processor)
@@ -28,7 +23,7 @@ class PasetoLoginManager(LoginManager):
         self.paseto_version = app.config.get("PASETO_VERSION", 4)
         if not isinstance(self.paseto_version, int):
             raise TypeError("PASETO_VERSION must be int")
-        if self.paseto_version not in [1,2,3,4]:
+        if self.paseto_version not in [1, 2, 3, 4]:
             raise ValueError("PASETO_VERSION must be 1, 2, 3 or 4")
 
         self._remember_cookie_key = app.config.get("REMEMBER_COOKIE_KEY", None)
@@ -61,17 +56,21 @@ class PasetoLoginManager(LoginManager):
         try:
             expires = datetime.utcnow() + duration
         except TypeError as err:
-            raise TypeError("REMEMBER_COOKIE_DURATION must be datetime.timedelta") from err
+            raise TypeError(
+                "REMEMBER_COOKIE_DURATION must be datetime.timedelta"
+            ) from err
 
         # actually set it
-        response.set_cookie(cookie_name,
-                            value=data,
-                            expires=expires,
-                            domain=domain,
-                            path=path,
-                            secure=secure,
-                            httponly=httponly,
-                            samesite=samesite)
+        response.set_cookie(
+            cookie_name,
+            value=data,
+            expires=expires,
+            domain=domain,
+            path=path,
+            secure=secure,
+            httponly=httponly,
+            samesite=samesite,
+        )
         return
 
     def _load_user_from_remember_cookie(self, cookie):
