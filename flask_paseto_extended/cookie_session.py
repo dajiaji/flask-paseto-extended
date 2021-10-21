@@ -25,8 +25,6 @@ class PasetoCookieSessionInterface(SessionInterface):
         if not val:
             return SecureCookieSession()
 
-        print("val:", val)
-
         max_age = int(app.permanent_session_lifetime.total_seconds())
 
         try:
@@ -53,7 +51,6 @@ class PasetoCookieSessionInterface(SessionInterface):
                 response.delete_cookie(
                     name, domain=domain, path=path, secure=secure, samesite=samesite
                 )
-
             return
 
         # Add a "Vary: Cookie" header if the session was accessed at all.
@@ -78,3 +75,4 @@ class PasetoCookieSessionInterface(SessionInterface):
             secure=secure,
             samesite=samesite,
         )
+        return
