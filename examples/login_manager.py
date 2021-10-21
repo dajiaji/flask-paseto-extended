@@ -6,8 +6,7 @@ from flask_paseto_extended import PasetoLoginManager
 app = flask.Flask(__name__)
 app.secret_key = "super secret string"
 
-login_manager = PasetoLoginManager()
-login_manager.init_app(app)
+login_manager = PasetoLoginManager(app)
 
 # Our mock database.
 users = {"foo@bar.example": {"password": "mysecret"}}
@@ -76,7 +75,3 @@ def logout():
 @flask_login.login_required
 def protected():
     return "Logged in as: " + flask_login.current_user.id
-
-
-if __name__ == "__main__":
-    app.run()
