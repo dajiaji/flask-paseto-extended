@@ -1,7 +1,6 @@
 import flask
 import flask_login
 import pytest
-from flask_login import LoginManager
 
 from flask_paseto_extended import PasetoLoginManager
 

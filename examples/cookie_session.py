@@ -13,6 +13,7 @@ login_manager = LoginManager(app)
 # Our mock database.
 users = {"foo@bar.example": {"password": "mysecret"}}
 
+
 # Our simple user class
 class User(flask_login.UserMixin):
     pass
