@@ -1,8 +1,7 @@
 import flask
 import flask_login
-from flask_login import LoginManager
-
 import pytest
+from flask_login import LoginManager
 
 from flask_paseto_extended import PasetoLoginManager
 
@@ -13,42 +12,38 @@ def app():
     app = flask.Flask(__name__)
     app.secret_key = "super secret string"
     login_manager = PasetoLoginManager(app)
-    
+
     # Our mock database.
     users = {"foo@bar.example": {"password": "mysecret"}}
-    
+
     # Our simple user class
     class User(flask_login.UserMixin):
         pass
-    
-    
+
     @login_manager.user_loader
     def user_loader(email):
-    
+
         if email not in users:
             return
-    
+
         user = User()
         user.id = email
         return user
-    
-    
+
     @login_manager.request_loader
     def request_loader(request):
-    
+
         email = request.form.get("email")
         if email not in users:
             return
-    
+
         user = User()
         user.id = email
         return user
-    
-    
+
     @login_manager.unauthorized_handler
     def unauthorized_handler():
         return "Unauthorized"
-
 
     @app.route("/login", methods=["POST"])
     def login():
@@ -60,8 +55,7 @@ def app():
             flask_login.login_user(user, remember=True)
             return flask.redirect(flask.url_for("protected"))
         return "Bad login"
-    
-    
+
     @app.route("/logout")
     def logout():
 
@@ -73,7 +67,7 @@ def app():
     def protected():
 
         return "Logged in as: " + flask_login.current_user.id
-    
+
     return app
 
 
