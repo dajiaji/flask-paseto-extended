@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta:__legacy__"
 [tool.coverage.run]
 parallel = true
 branch = true
-source = ["flask_paseto"]
+source = ["flask_paseto_extended"]
 
 [tool.coverage.paths]
-source = ["flask_paseto", ".tox/*/site-packages"]
+source = ["flask_paseto_extended", ".tox/*/site-packages"]
 
 [tool.coverage.report]
 show_missing = true

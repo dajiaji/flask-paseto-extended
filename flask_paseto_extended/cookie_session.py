@@ -44,8 +44,6 @@ class PasetoCookieSessionInterface(SessionInterface):
         secure = self.get_cookie_secure(app)
         samesite = self.get_cookie_samesite(app)
 
-        # If the session is modified to be empty, remove the cookie.
-        # If the session is empty, return without setting the cookie.
         if not session:
             if session.modified:
                 response.delete_cookie(
@@ -53,7 +51,6 @@ class PasetoCookieSessionInterface(SessionInterface):
                 )
             return
 
-        # Add a "Vary: Cookie" header if the session was accessed at all.
         if session.accessed:
             response.vary.add("Cookie")
 
@@ -67,7 +64,7 @@ class PasetoCookieSessionInterface(SessionInterface):
         val = pyseto.encode(enc_key, serialized_session).decode("ascii")
         response.set_cookie(
             name,
-            val,  # type: ignore
+            val,
             expires=expires,
             httponly=httponly,
             domain=domain,
