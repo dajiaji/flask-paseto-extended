@@ -25,7 +25,7 @@ class PasetoCookieSessionInterface(SessionInterface):
         if not val:
             return SecureCookieSession()
 
-        max_age = int(app.permanent_session_lifetime.total_seconds())
+        # max_age = int(app.permanent_session_lifetime.total_seconds())
 
         try:
             dec_key = Key.new(self._paseto_version, "local", app.secret_key)
