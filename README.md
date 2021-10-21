@@ -1,6 +1,6 @@
 # Flask PASETO Extended
 
-Flask-PASETO-Extended is a Flask extension to use [PASETO (Platform-Agnostic Security Tokens)](https://paseto.io/).
+Flask-PASETO-Extended is a Flask extension to use [PASETO (Platform-Agnostic Security Tokens)](https://paseto.io/) for several purposes.
 It is built on top of [PySETO](https://github.com/dajiaji/pyseto) which is a PASETO implementation
 and supports all of PASETO versions (`v4`, `v3`, `v2` and `v1`) and purposes (`local` and `public`).
 
@@ -11,7 +11,7 @@ Currently, we provide the following classes for using PASETO with Flask.
 - `PasetoLoginManager`: By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login),
   you can use PASETO for remember-me tokens which is also encoded into a Cookie value.
 - `PasetoManager`: This class can be used for verifying public (signed) PASETO.
-  It is suitable for using PASETO as API tokens.
+  It is suitable for using PASETO as API tokens (NOTE: under construction).
 
 ## Installation
 
