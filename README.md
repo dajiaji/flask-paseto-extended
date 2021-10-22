@@ -1,5 +1,11 @@
 # Flask PASETO Extended
 
+[![PyPI version](https://badge.fury.io/py/flask-paseto-extended.svg)](https://badge.fury.io/py/flask-paseto-extended)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/flask-paseto-extended)
+[![Documentation Status](https://readthedocs.org/projects/flask-paseto-extended/badge/?version=latest)](https://flask-paseto-extended.readthedocs.io/en/latest/?badge=latest)
+![Github CI](https://github.com/dajiaji/flask-paseto-extended/actions/workflows/python-package.yml/badge.svg)
+[![codecov](https://codecov.io/gh/dajiaji/flask-paseto-extended/branch/main/graph/badge.svg?token=QN8GXEYEP3)](https://codecov.io/gh/dajiaji/flask-paseto-extended)
+
 Flask-PASETO-Extended is a Flask extension to use [PASETO (Platform-Agnostic Security Tokens)](https://paseto.io/) for several purposes.
 It is built on top of [PySETO](https://github.com/dajiaji/pyseto) which is a PASETO implementation
 and supports all of PASETO versions (`v4`, `v3`, `v2` and `v1`) and purposes (`local` and `public`).
