@@ -93,4 +93,4 @@ jobs:
       run: python -m pip install -e .[dev]
 
     - name: Import package
-      run: python -c 'import flask-paseto-extended; print(flask-paseto-extended.__version__)'
+      run: python -c 'import flask_paseto_extended; print(flask_paseto_extended.__version__)'
