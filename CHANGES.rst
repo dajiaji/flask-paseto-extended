@@ -4,6 +4,11 @@ Changes
 Unreleased
 ----------
 
+Version 0.2.0
+-------------
+
+Released 2021-10-24
+
 - Refine app.config name for PasetoLoginManager. `#16 <https://github.com/dajiaji/python-cwt/pull/16>`__
 - Add tests for PasetoLoginManager. `#16 <https://github.com/dajiaji/python-cwt/pull/16>`__
 - Rename package name from Flask PASETO Extended to flask-paseto-extended. `#15 <https://github.com/dajiaji/python-cwt/pull/15>`__
