@@ -15,14 +15,24 @@ which is a PASETO implementation supporting all of PASETO versions (
 [v2](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version2.md) and
 [v1](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version1.md)) and purposes (`local` and `public`).
 
-Currently, we provide the following classes for using PASETO with Flask.
+Currently, we provide the following classes for using PASETO with Flask:
 
-- `PasetoCookieSessionInterface`
+- **PasetoCookieSessionInterface**
   - Flask (`Flask.sessions`) stores session information as a Cookie value. By using this class, you can serialize the session information as an encrypted (and then MACed) PASETO.
-- `PasetoLoginManager`
+- **PasetoLoginManager**
   - By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login), you can use PASETO for remember-me tokens which is also encoded into a Cookie value.
-- `PasetoManager`
+- **PasetoManager**
   - This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens (NOTE: under construction).
+
+## Index
+- [Installation](#installation)
+- [Usage](#usage)
+  - [PasetoCookieSessionInterface](#pasetocookiesessioninterface)
+  - [PasetoLoginManager](#pasetologinmanager)
+  - [PasetoManager](#pasetomanager)
+- [API Reference](#api-reference)
+- [Tests](#tests)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -64,6 +74,7 @@ This class can be used as follows:
 ```py
 import flask
 import flask_login
+# Import PasetoLoginManager instead of flask_login.LoginManager.
 from flask_paseto_extended import PasetoLoginManager
 
 app = flask.Flask(__name__)
@@ -79,6 +90,19 @@ See [examples/login_manager.py](https://github.com/dajiaji/flask-paseto-extended
 This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens (NOTE: under construction).
 
 T.B.D.
+
+## API Reference
+
+See [Document](https://flask-paseto-extended.readthedocs.io/en/stable/api.html).
+
+
+## Tests
+
+You can run tests from the project root after cloning with:
+
+```sh
+$ tox
+```
 
 ## Contributing
 
