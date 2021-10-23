@@ -13,6 +13,7 @@ from flask_login import (
 from .utils import decode_cookie, encode_cookie
 
 COOKIE_SAMESITE = None
+DEFAULT_REMEMBER_COOKIE_PASETO_VERSION = 4
 
 
 class PasetoLoginManager(LoginManager):
@@ -20,15 +21,17 @@ class PasetoLoginManager(LoginManager):
 
         super().init_app(app, add_context_processor)
 
-        self.paseto_version = app.config.get("PASETO_VERSION", 4)
+        self.paseto_version = app.config.get(
+            "REMEMBER_COOKIE_PASETO_VERSION", DEFAULT_REMEMBER_COOKIE_PASETO_VERSION
+        )
         if not isinstance(self.paseto_version, int):
-            raise TypeError("PASETO_VERSION must be int")
+            raise TypeError("REMEMBER_COOKIE_PASETO_VERSION must be int")
         if self.paseto_version not in [1, 2, 3, 4]:
-            raise ValueError("PASETO_VERSION must be 1, 2, 3 or 4")
+            raise ValueError("REMEMBER_COOKIE_PASETO_VERSION must be 1, 2, 3 or 4")
 
-        self._remember_cookie_key = app.config.get("REMEMBER_COOKIE_KEY", None)
+        self._remember_cookie_key = app.config.get("REMEMBER_COOKIE_PASETO_KEY", None)
         if not isinstance(self._remember_cookie_key, (type(None), str)):
-            raise TypeError("REMEMBER_COOKIE_KEY must be str")
+            raise TypeError("REMEMBER_COOKIE_PASETO_KEY must be str")
 
     def _set_cookie(self, response):
 
@@ -78,16 +81,13 @@ class PasetoLoginManager(LoginManager):
         user_id = decode_cookie(cookie, self._remember_cookie_key)
         if user_id is None:
             return None
-
         session["_user_id"] = user_id
         session["_fresh"] = False
-
         user = None
         if self._user_callback:
             user = self._user_callback(user_id)
-        if user is None:
-            return None
-
-        app = current_app._get_current_object()
-        user_loaded_from_cookie.send(app, user=user)
-        return user
+        if user is not None:
+            app = current_app._get_current_object()
+            user_loaded_from_cookie.send(app, user=user)
+            return user
+        return None
