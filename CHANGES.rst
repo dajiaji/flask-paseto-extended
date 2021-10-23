@@ -4,6 +4,8 @@ Changes
 Unreleased
 ----------
 
+- Refine app.config name for PasetoLoginManager. `#16 <https://github.com/dajiaji/python-cwt/pull/16>`__
+- Add tests for PasetoLoginManager. `#16 <https://github.com/dajiaji/python-cwt/pull/16>`__
 - Rename package name from Flask PASETO Extended to flask-paseto-extended. `#15 <https://github.com/dajiaji/python-cwt/pull/15>`__
 - Add tests for PasetoCookieSessionInterface. `#14 <https://github.com/dajiaji/python-cwt/pull/14>`__
 
