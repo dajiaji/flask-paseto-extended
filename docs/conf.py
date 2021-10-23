@@ -15,13 +15,13 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 
-from flask_paseto_extended import __version__
+from flask_paseto_extended import __author__, __title__, __version__
 
 # -- Project information -----------------------------------------------------
 
-project = "Flask PASETO Extended"
+project = __title__
 copyright = "2021, Ajitomi Daisuke (dajiaji)"
-author = "Ajitomi Daisuke (dajiaji)"
+author = __author__
 
 # The full version, including alpha/beta/rc tags
 release = __version__
