@@ -89,5 +89,4 @@ class PasetoLoginManager(LoginManager):
         if user is not None:
             app = current_app._get_current_object()
             user_loaded_from_cookie.send(app, user=user)
-            return user
-        return None
+        return user
