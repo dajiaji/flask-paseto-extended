@@ -93,7 +93,7 @@ class TestPasetoCookieSessionInterface:
     Tests for sample code.
     """
 
-    def test_sample_cookie_session(self, app):
+    def test_cookie_session(self, app):
 
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -119,7 +119,7 @@ class TestPasetoCookieSessionInterface:
             (4, "super secret string"),
         ],
     )
-    def test_sample_cookie_session_with_paseto_version(self, app, version, key):
+    def test_cookie_session_with_paseto_version(self, app, version, key):
 
         app.secret_key = key
         app.session_interface = PasetoCookieSessionInterface(paseto_version=version)
@@ -137,7 +137,7 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
             assert res.status_code == 200
 
-    def test_sample_cookie_session_without_secret_key(self, app):
+    def test_cookie_session_without_secret_key(self, app):
 
         # app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -149,7 +149,7 @@ class TestPasetoCookieSessionInterface:
             )
             assert res.status_code == 500
 
-    def test_sample_cookie_session_encode_with_invalid_key(self, app):
+    def test_cookie_session_encode_with_invalid_key(self, app):
 
         app.secret_key = "not 32bytes secret for v2"
         app.session_interface = PasetoCookieSessionInterface(paseto_version=2)
@@ -161,7 +161,7 @@ class TestPasetoCookieSessionInterface:
             )
             assert res.status_code == 500
 
-    def test_sample_cookie_session_decode_with_another_key(self, app):
+    def test_cookie_session_decode_with_another_key(self, app):
 
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -179,7 +179,7 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
             assert res.data == b"Unauthorized"
 
-    def test_sample_cookie_session_decode_with_invalid_paseto(self, app):
+    def test_cookie_session_decode_with_invalid_paseto(self, app):
 
         app.secret_key = "my super secret"
         app.session_interface = PasetoCookieSessionInterface()
@@ -201,12 +201,14 @@ class TestPasetoCookieSessionInterface:
         "version, msg",
         [
             (0, "Invalid PASETO version: 0"),
+            (5, "Invalid PASETO version: 5"),
+            (100, "Invalid PASETO version: 100"),
             ("xxx", "Invalid PASETO version: xxx"),
             ({}, "Invalid PASETO version: {}"),
             ([], "Invalid PASETO version: []"),
         ],
     )
-    def test_sample_cookie_session_with_version(self, app, version, msg):
+    def test_cookie_session_with_invalid_version(self, app, version, msg):
 
         app.secret_key = "super secret string"
         with pytest.raises(ValueError) as err:
