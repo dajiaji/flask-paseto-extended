@@ -7,17 +7,22 @@
 [![codecov](https://codecov.io/gh/dajiaji/flask-paseto-extended/branch/main/graph/badge.svg?token=QN8GXEYEP3)](https://codecov.io/gh/dajiaji/flask-paseto-extended)
 
 Flask-PASETO-Extended is a Flask extension to use [PASETO (Platform-Agnostic Security Tokens)](https://paseto.io/) for several purposes.
-It is built on top of [PySETO](https://github.com/dajiaji/pyseto) which is a PASETO implementation
-and supports all of PASETO versions (`v4`, `v3`, `v2` and `v1`) and purposes (`local` and `public`).
+
+For PASETO encoder/decoder, we have adopted [PySETO](https://github.com/dajiaji/pyseto),
+which is a PASETO implementation supporting all of PASETO versions (
+[v4](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version4.md),
+[v3](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version3.md),
+[v2](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version2.md) and
+[v1](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version1.md)) and purposes (`local` and `public`).
 
 Currently, we provide the following classes for using PASETO with Flask.
 
-- `PasetoCookieSessionInterface`: Flask stores session information as a Cookie value.
-  By using this class, you can serialize the session information as an encrypted PASETO.
-- `PasetoLoginManager`: By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login),
-  you can use PASETO for remember-me tokens which is also encoded into a Cookie value.
-- `PasetoManager`: This class can be used for verifying public (signed) PASETO.
-  It is suitable for using PASETO as API tokens (NOTE: under construction).
+- `PasetoCookieSessionInterface`
+  - Flask (`Flask.sessions`) stores session information as a Cookie value. By using this class, you can serialize the session information as an encrypted (and then MACed) PASETO.
+- `PasetoLoginManager`
+  - By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login), you can use PASETO for remember-me tokens which is also encoded into a Cookie value.
+- `PasetoManager`
+  - This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens (NOTE: under construction).
 
 ## Installation
 
@@ -32,6 +37,8 @@ $ pip install flask-paseto-extended
 Flask-PASETO-Extended provides three classes for each purpose.
 
 ### PasetoCookieSessionInterface
+
+Flask (`Flask.sessions`) stores session information as a Cookie value. By using this class, you can serialize the session information as an encrypted (and then MACed) PASETO.
 
 This class can be used as follows:
 
@@ -50,6 +57,7 @@ See [examples/cookie_session.py](https://github.com/dajiaji/flask-paseto-extende
 
 ### PasetoLoginManager
 
+By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login), you can use PASETO for remember-me tokens which is also encoded into a Cookie value.
 
 This class can be used as follows:
 
@@ -67,6 +75,8 @@ login_manager = PasetoLoginManager(app)
 See [examples/login_manager.py](https://github.com/dajiaji/flask-paseto-extended/blob/main/examples/login_manager.py) for a sample code that actually works.
 
 ### PasetoManager
+
+This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens (NOTE: under construction).
 
 T.B.D.
 
