@@ -8,7 +8,7 @@
 
 Flask-PASETO-Extended is a Flask extension to use [PASETO (Platform-Agnostic Security Tokens)](https://paseto.io/) for several purposes.
 
-For PASETO encoder/decoder, we have adopted [PySETO](https://github.com/dajiaji/pyseto),
+For encoding/decoding PASETO, we have adopted [PySETO](https://github.com/dajiaji/pyseto),
 which is a PASETO implementation supporting all of PASETO versions (
 [v4](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version4.md),
 [v3](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version3.md),
