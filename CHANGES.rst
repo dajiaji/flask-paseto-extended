@@ -4,6 +4,8 @@ Changes
 Unreleased
 ----------
 
+- Add tests for PasetoCookieSessionInterface. `#14 <https://github.com/dajiaji/python-cwt/pull/14>`__
+
 Version 0.1.1
 -------------
 
