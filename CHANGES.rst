@@ -4,6 +4,7 @@ Changes
 Unreleased
 ----------
 
+- Rename package name from Flask PASETO Extended to flask-paseto-extended. `#15 <https://github.com/dajiaji/python-cwt/pull/15>`__
 - Add tests for PasetoCookieSessionInterface. `#14 <https://github.com/dajiaji/python-cwt/pull/14>`__
 
 Version 0.1.1
