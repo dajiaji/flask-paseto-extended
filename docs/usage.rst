@@ -51,8 +51,8 @@ which is also encoded into a Cookie value.
 
 See `examples/login_manager.py`_ for a sample code that actually works.
 
-PasetoManager
--------------
+PasetoVerifier
+--------------
 
 This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens.
 
