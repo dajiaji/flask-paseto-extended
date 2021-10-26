@@ -1,5 +1,9 @@
 from .cookie_session import PasetoCookieSessionInterface
+from .exceptions import DecodeError, EncodeError, FlaskPasetoError
+from .issuer import PasetoIssuer
 from .login_manager import PasetoLoginManager
+from .token import Token, current_token, token_required
+from .verifier import PasetoVerifier
 
 __version__ = "0.2.0"
 __title__ = "Flask PASETO Extended"
@@ -14,4 +18,12 @@ __copyright__ = "Copyright 2021 Ajitomi Daisuke"
 __all__ = [
     "PasetoCookieSessionInterface",
     "PasetoLoginManager",
+    "PasetoIssuer",
+    "PasetoVerifier",
+    "Token",
+    "current_token",
+    "token_required",
+    "FlaskPasetoError",
+    "EncodeError",
+    "DecodeError",
 ]
