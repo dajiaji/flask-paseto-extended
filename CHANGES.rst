@@ -4,6 +4,13 @@ Changes
 Unreleased
 ----------
 
+Version 0.3.2
+-------------
+
+Released 2021-11-23
+
+- Fix .readthedocs not to use setup.py. `#27 <https://github.com/dajiaji/python-cwt/pull/27>`__
+
 Version 0.3.1
 -------------
 
