@@ -1,0 +1,1 @@
+PASETO_VERSIONS_ACCEPTABLE: set = {1, 2, 3, 4}

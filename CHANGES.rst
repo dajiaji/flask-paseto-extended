@@ -4,6 +4,8 @@ Changes
 Unreleased
 ----------
 
+- Add PasetoIssuer and PasetoVerifier. `#19 <https://github.com/dajiaji/python-cwt/pull/19>`__
+
 Version 0.2.0
 -------------
 
