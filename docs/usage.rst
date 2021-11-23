@@ -6,6 +6,97 @@ Flask-PASETO-Extended provides three classes for each purpose.
 .. contents::
    :local:
 
+PasetoIssuer
+------------
+
+This class can be used for issuing `public` (signed) PASETO. It is suitable for using PASETO as API tokens. By using `PasetoIssuer`, you can easily implement the endpoint issuing PASETO tokens as follows:
+
+.. code-block:: python
+
+    import flask
+
+    from flask_paseto_extended import PasetoIssuer
+
+    # Mock user database.
+    users = {"foo@bar.example": {"password": "mysecret"}}
+
+
+    app = flask.Flask(__name__)
+
+    app.config["PASETO_ISS"] = "https://issuer.example"
+    app.config["PASETO_PRIVATE_KEYS"] = [
+        {
+            "version": 4,
+            "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
+        },
+    ]
+    issuer = PasetoIssuer(app)
+
+
+    @app.route("/login", methods=["POST"])
+    def login():
+        email = flask.request.form["email"]
+        if flask.request.form["password"] != users[email]["password"]:
+            return "Bad login"
+
+        token = issuer.issue(payload={"user": {"email": email}})
+        resp = flask.redirect(flask.url_for("protected"))
+        resp.set_cookie(
+            "paseto", token, httponly=True
+        )  # Note: MUST add secure=True in production
+        return resp
+
+See `examples/issuer_and_verifier.py`_ for a sample code that actually works.
+
+PasetoVerifier
+--------------
+
+This class can be used for verifying `public` (signed) PASETO. It is suitable for using PASETO as API tokens. By using `PasetoVerifier`, you can easily implement the endpoint verifying PASETO tokens. You can enable PASETO token verification in your APIs by simply adding `@paseto_required` decorator to the API definitions. In the APIs, you can refer to the veified PASETO token with `current_paseto`.
+
+.. code-block:: python
+
+    import flask
+    from flask import jsonify, make_response
+
+    from flask_paseto_extended import PasetoVerifier, current_paseto, paseto_required
+
+    # Mock user database.
+    users = {"foo@bar.example": {"password": "mysecret"}}
+
+    app = flask.Flask(__name__)
+
+    # Configurations for PasetoVerifier.
+    app.config["PASETO_PUBLIC_KEYS"] = [
+        {
+            "iss": "https://issuer.exmaple",
+            "version": 4,
+            "key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI=\n-----END PUBLIC KEY-----",
+        },
+    ]
+    verifier = PasetoVerifier(app)
+
+
+    @verifier.token_loader
+    def token_loader(req: flask.Request):
+        # You must implement a callback func to extract a PASETO token from each request.
+        return req.cookies.get("paseto", None)
+
+
+    @verifier.verification_error_handler
+    def verification_error_handler():
+        # You must also implement a callback func to handle token verification errors..
+        resp = make_response("Unauthorized")
+        resp.delete_cookie("paseto", httponly=True)
+        return resp
+
+
+    @app.route("/protected/users/self")
+    @paseto_required()
+    def protected():
+        return jsonify(current_paseto.payload["user"])
+
+See `examples/issuer_and_verifier.py`_ for a sample code that actually works.
+
 PasetoCookieSessionInterface
 ----------------------------
 
@@ -51,13 +142,7 @@ which is also encoded into a Cookie value.
 
 See `examples/login_manager.py`_ for a sample code that actually works.
 
-PasetoVerifier
---------------
-
-This class can be used for verifying public (signed) PASETO. It is suitable for using PASETO as API tokens.
-
-T.B.D.
-
+.. _`examples/issuer_and_verifier.py`: https://github.com/dajiaji/flask-paseto-extended/blob/main/examples/issuer_and_verifier.py
 .. _`examples/cookie_session.py`: https://github.com/dajiaji/flask-paseto-extended/blob/main/examples/cookie_session.py
 .. _`examples/login_manager.py`: https://github.com/dajiaji/flask-paseto-extended/blob/main/examples/login_manager.py
 .. _`Flask-Login`: https://github.com/maxcountryman/flask-login

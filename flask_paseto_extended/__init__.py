@@ -2,7 +2,7 @@ from .cookie_session import PasetoCookieSessionInterface
 from .exceptions import DecodeError, EncodeError, FlaskPasetoError
 from .issuer import PasetoIssuer
 from .login_manager import PasetoLoginManager
-from .token import Token, current_token, token_required
+from .token import Token, current_paseto, paseto_required
 from .verifier import PasetoVerifier
 
 __version__ = "0.2.0"
@@ -21,8 +21,8 @@ __all__ = [
     "PasetoIssuer",
     "PasetoVerifier",
     "Token",
-    "current_token",
-    "token_required",
+    "current_paseto",
+    "paseto_required",
     "FlaskPasetoError",
     "EncodeError",
     "DecodeError",

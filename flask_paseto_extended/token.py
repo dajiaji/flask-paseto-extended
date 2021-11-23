@@ -9,7 +9,7 @@ from .exceptions import ConfigError
 
 class Token(object):
     """
-    The parsed token object which can be referred as ``current_token`` in the
+    The parsed token object which can be referred as ``current_paseto`` in the
     views decorated by ``@token_required``.
     """
 
@@ -83,10 +83,10 @@ class Token(object):
         return self._error
 
 
-current_token: Token = LocalProxy(lambda: _get_token())
+current_paseto: Token = LocalProxy(lambda: _get_token())
 
 
-def token_required():
+def paseto_required():
     """ """
 
     def wrapper(func):
@@ -96,7 +96,7 @@ def token_required():
             if not hasattr(current_app, "paseto_verifier"):
                 raise ConfigError("paseto_verifier is not set in the current_app.")
 
-            if not current_token.is_verified:
+            if not current_paseto.is_verified:
                 return current_app.paseto_verifier.verification_error_handler_callback()
 
             if not hasattr(current_app, "ensure_sync"):

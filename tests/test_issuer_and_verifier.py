@@ -7,8 +7,8 @@ from flask import jsonify, make_response
 from flask_paseto_extended import (
     PasetoIssuer,
     PasetoVerifier,
-    current_token,
-    token_required,
+    current_paseto,
+    paseto_required,
 )
 
 
@@ -72,15 +72,15 @@ def app():
         return resp
 
     @app.route("/protected")
-    @token_required()
+    @paseto_required()
     def protected():
-        assert current_token.is_verified is True
-        assert current_token.version == "v4"
-        assert current_token.purpose == "public"
-        assert current_token.header == b"v4.public."
-        assert current_token.footer == b""
-        assert current_token.error is None
-        return jsonify(current_token.payload["user"])
+        assert current_paseto.is_verified is True
+        assert current_paseto.version == "v4"
+        assert current_paseto.purpose == "public"
+        assert current_paseto.header == b"v4.public."
+        assert current_paseto.footer == b""
+        assert current_paseto.error is None
+        return jsonify(current_paseto.payload["user"])
 
     return app
 

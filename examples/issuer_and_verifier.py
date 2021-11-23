@@ -4,8 +4,8 @@ from flask import jsonify, make_response
 from flask_paseto_extended import (
     PasetoIssuer,
     PasetoVerifier,
-    current_token,
-    token_required,
+    current_paseto,
+    paseto_required,
 )
 
 # Mock user database.
@@ -16,21 +16,20 @@ app = flask.Flask(__name__)
 
 # Configurations for PasetoIssuer.
 app.config["PASETO_ISS"] = "https://issuer.example"
-app.config["PASETO_USE_ISS"] = True
-app.config["PASETO_USE_IAT"] = True
-app.config["PASETO_EXP"] = 3600
 app.config["PASETO_PRIVATE_KEYS"] = [
     {
         "version": 4,
         "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
     },
 ]
+# app.config["PASETO_USE_ISS"] = True
+# app.config["PASETO_USE_IAT"] = True
+# app.config["PASETO_EXP"] = 3600
+# app.config["PASETO_SERIALIZER"] = json # or e.g., cbor2
 issuer = PasetoIssuer(app)
 
 
 # Configurations for PasetoVerifier.
-app.config["PASETO_VERSIONS"] = [4]
-app.config["PASETO_SKEW"] = 60  # sec
 app.config["PASETO_PUBLIC_KEYS"] = [
     {
         "iss": "https://issuer.exmaple",
@@ -38,6 +37,8 @@ app.config["PASETO_PUBLIC_KEYS"] = [
         "key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI=\n-----END PUBLIC KEY-----",
     },
 ]
+# app.config["PASETO_SKEW"] = 60  # in seconds
+# app.config["PASETO_DESERIALIZER"] = json # or e.g., cbor2
 verifier = PasetoVerifier(app)
 
 
@@ -70,9 +71,8 @@ def login():
 
     token = issuer.issue(payload={"user": {"email": email}})
     resp = flask.redirect(flask.url_for("protected"))
-    resp.set_cookie(
-        "paseto", token, httponly=True
-    )  # Should add secure=True in production env.
+    # NOTE: MUST add secure=True in production.
+    resp.set_cookie("paseto", token, httponly=True)
     return resp
 
 
@@ -84,6 +84,6 @@ def logout():
 
 
 @app.route("/protected/users/self")
-@token_required()
+@paseto_required()
 def protected():
-    return jsonify(current_token.payload["user"])
+    return jsonify(current_paseto.payload["user"])

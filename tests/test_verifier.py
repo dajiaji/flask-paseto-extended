@@ -5,8 +5,8 @@ from flask import jsonify, make_response
 from flask_paseto_extended import (
     PasetoIssuer,
     PasetoVerifier,
-    current_token,
-    token_required,
+    current_paseto,
+    paseto_required,
 )
 
 
@@ -64,10 +64,10 @@ def app_with_wrong_public_key():
         return resp
 
     @app.route("/protected")
-    @token_required()
+    @paseto_required()
     def protected():
         # Token verification always fails.
-        return jsonify(current_token.payload["user"])
+        return jsonify(current_paseto.payload["user"])
 
     return app
 
@@ -115,10 +115,10 @@ def app_without_verifier():
         return resp
 
     @app.route("/protected")
-    @token_required()
+    @paseto_required()
     def protected():
         # Token verification always fails.
-        return jsonify(current_token.payload["user"])
+        return jsonify(current_paseto.payload["user"])
 
     return app
 
