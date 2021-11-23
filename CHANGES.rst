@@ -4,6 +4,13 @@ Changes
 Unreleased
 ----------
 
+Version 0.3.1
+-------------
+
+Released 2021-11-23
+
+- Introduce flit for publishing. `#25 <https://github.com/dajiaji/python-cwt/pull/25>`__
+
 Version 0.3.0
 -------------
 
