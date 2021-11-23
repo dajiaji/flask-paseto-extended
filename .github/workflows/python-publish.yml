@@ -28,4 +28,5 @@ jobs:
         FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
         FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        flit publish
+        flit install
+        flit publish --format wheel
