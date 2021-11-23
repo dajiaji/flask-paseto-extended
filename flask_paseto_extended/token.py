@@ -83,7 +83,7 @@ class Token(object):
         return self._error
 
 
-current_paseto: Token = LocalProxy(lambda: _get_token())
+current_paseto: Token = LocalProxy(lambda: _get_token())  # type: ignore
 
 
 def paseto_required():
@@ -112,6 +112,6 @@ def paseto_required():
 def _get_token() -> Token:
     """ """
     if has_request_context() and not hasattr(_request_ctx_stack.top, "paseto"):
-        current_app.paseto_verifier._load_and_verify()
+        current_app.paseto_verifier._load_and_verify()  # type: ignore
 
     return getattr(_request_ctx_stack.top, "paseto", None)

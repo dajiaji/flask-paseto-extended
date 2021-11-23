@@ -29,7 +29,7 @@ class PasetoCookieSessionInterface(SessionInterface):
 
         try:
             dec_key = Key.new(self._paseto_version, "local", app.secret_key)
-            serialized_session = pyseto.decode(dec_key, val).payload.decode("utf-8")
+            serialized_session = pyseto.decode(dec_key, val).payload.decode("utf-8")  # type: ignore
             return SecureCookieSession(self._serializer.loads(serialized_session))
         except Exception:
             return SecureCookieSession()
