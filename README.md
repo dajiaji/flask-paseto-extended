@@ -1,5 +1,7 @@
 # Flask PASETO Extended
 
+![Flask PASETO Extended](https://github.com/dajiaji/flask-paseto-extended/wiki/images/flask_paseto_extended_header.png)
+
 [![PyPI version](https://badge.fury.io/py/flask-paseto-extended.svg)](https://badge.fury.io/py/flask-paseto-extended)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/flask-paseto-extended)
 [![Documentation Status](https://readthedocs.org/projects/flask-paseto-extended/badge/?version=latest)](https://flask-paseto-extended.readthedocs.io/en/latest/?badge=latest)
