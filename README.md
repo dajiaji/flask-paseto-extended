@@ -20,7 +20,7 @@ Flask-PASETO-Extended provides following four classes to use [PASETO (Platform-A
   - By using this class together with [Flask-Login](https://github.com/maxcountryman/flask-login), you can use a `local` PASETO for remember-me tokens which is also encoded into a Cookie value.
 
 For encoding/decoding PASETO, we have adopted [PySETO](https://github.com/dajiaji/pyseto),
-which is a PASETO implementation supporting all of PASETO versions (
+which is a PASETO/PASERK implementation supporting all of PASETO versions (
 [v4](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version4.md),
 [v3](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version3.md),
 [v2](https://github.com/paseto-standard/paseto-spec/blob/master/docs/01-Protocol-Versions/Version2.md) and
@@ -28,7 +28,7 @@ which is a PASETO implementation supporting all of PASETO versions (
 
 ## Index
 - [Installation](#installation)
-- [Usage](#usage)
+- [Basic Usage](#basic-usage)
   - [PasetoIssuer/PasetoVerifier](#pasetoissuerverifier)
   - [PasetoCookieSessionInterface](#pasetocookiesessioninterface)
   - [PasetoLoginManager](#pasetologinmanager)
@@ -44,7 +44,7 @@ You can install Flask-PASETO-Extended with pip:
 $ pip install flask-paseto-extended
 ```
 
-## Usage
+## Basic Usage
 
 Flask-PASETO-Extended provides three classes for each purpose.
 
@@ -184,7 +184,7 @@ See [examples/login_manager.py](https://github.com/dajiaji/flask-paseto-extended
 
 ## API Reference
 
-See [Document](https://flask-paseto-extended.readthedocs.io/en/stable/api.html).
+See [Documentation](https://flask-paseto-extended.readthedocs.io/en/stable/api.html).
 
 
 ## Tests
