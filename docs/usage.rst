@@ -29,7 +29,15 @@ This class can be used for issuing `public` (signed) PASETO. It is suitable for 
             "version": 4,
             "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
         },
+        # PASERK can also be used (RECOMMENDED).
+        # {
+        #     "paserk": "k4.secret.tMv7Q99M4hByfZU-SnEzB_oZu32fhQQUONnhG5QqN3Qeudu7vAR8A_1wYE4AcfCYfhayi3VyJcEfAEFdDiCxog",
+        # },
     ]
+    # app.config["PASETO_USE_ISS"] = True
+    # app.config["PASETO_USE_IAT"] = True
+    # app.config["PASETO_EXP"] = 3600
+    # app.config["PASETO_SERIALIZER"] = json # or e.g., cbor2
     issuer = PasetoIssuer(app)
 
 
@@ -40,7 +48,7 @@ This class can be used for issuing `public` (signed) PASETO. It is suitable for 
             return "Bad login"
 
         token = issuer.issue(payload={"user": {"email": email}})
-        resp = flask.redirect(flask.url_for("protected"))
+        resp = flask.redirect(flask.url_for("protected_me"))
         resp.set_cookie(
             "paseto", token, httponly=True
         )  # Note: MUST add secure=True in production
@@ -72,7 +80,14 @@ This class can be used for verifying `public` (signed) PASETO. It is suitable fo
             "version": 4,
             "key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI=\n-----END PUBLIC KEY-----",
         },
+        # PASERK can also be used (RECOMMENDED).
+        # {
+        #     "iss": "https://issuer.exmaple",
+        #     "paserk": "k4.public.Hrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI",
+        # },
     ]
+    # app.config["PASETO_SKEW"] = 60  # in seconds
+    # app.config["PASETO_DESERIALIZER"] = json # or e.g., cbor2
     verifier = PasetoVerifier(app)
 
 
@@ -90,9 +105,9 @@ This class can be used for verifying `public` (signed) PASETO. It is suitable fo
         return resp
 
 
-    @app.route("/protected/users/self")
+    @app.route("/protected/me")
     @paseto_required()
-    def protected():
+    def protected_me():
         return jsonify(current_paseto.payload["user"])
 
 See `examples/issuer_and_verifier.py`_ for a sample code that actually works.

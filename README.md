@@ -1,5 +1,7 @@
 # Flask PASETO Extended
 
+![Flask PASETO Extended](https://github.com/dajiaji/flask-paseto-extended/wiki/images/flask_paseto_extended_header.png)
+
 [![PyPI version](https://badge.fury.io/py/flask-paseto-extended.svg)](https://badge.fury.io/py/flask-paseto-extended)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/flask-paseto-extended)
 [![Documentation Status](https://readthedocs.org/projects/flask-paseto-extended/badge/?version=latest)](https://flask-paseto-extended.readthedocs.io/en/latest/?badge=latest)
@@ -69,6 +71,10 @@ app.config["PASETO_PRIVATE_KEYS"] = [
         "version": 4,
         "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
     },
+    # PASERK can also be used (RECOMMENDED).
+    # {
+    #     "paserk": "k4.secret.tMv7Q99M4hByfZU-SnEzB_oZu32fhQQUONnhG5QqN3Qeudu7vAR8A_1wYE4AcfCYfhayi3VyJcEfAEFdDiCxog",
+    # },
 ]
 issuer = PasetoIssuer(app)
 
@@ -80,7 +86,7 @@ def login():
         return "Bad login"
 
     token = issuer.issue(payload={"user": {"email": email}})
-    resp = flask.redirect(flask.url_for("protected"))
+    resp = flask.redirect(flask.url_for("protected_me"))
     resp.set_cookie("paseto", token, httponly=True)  # Note: MUST add secure=True in production
     return resp
 ```
@@ -105,6 +111,11 @@ app.config["PASETO_PUBLIC_KEYS"] = [
         "version": 4,
         "key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI=\n-----END PUBLIC KEY-----",
     },
+    # PASERK can also be used (RECOMMENDED).
+    # {
+    #     "iss": "https://issuer.exmaple",
+    #     "paserk": "k4.public.Hrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI",
+    # },
 ]
 verifier = PasetoVerifier(app)
 
@@ -123,9 +134,9 @@ def verification_error_handler():
     return resp
 
 
-@app.route("/protected/users/self")
+@app.route("/protected/me")
 @paseto_required()
-def protected():
+def protected_me():
     return jsonify(current_paseto.payload["user"])
 ```
 
