@@ -4,6 +4,14 @@ Changes
 Unreleased
 ----------
 
+Version 0.3.3
+-------------
+
+Released 2021-11-24
+
+- Refine README and docstring for Read the Docs. `#29 <https://github.com/dajiaji/python-cwt/pull/29>`__
+- Refine example. `#28 <https://github.com/dajiaji/python-cwt/pull/28>`__
+
 Version 0.3.2
 -------------
 
