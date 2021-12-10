@@ -1,5 +1,9 @@
+import json
+
 import flask
+import pyseto
 import pytest
+from pyseto import Key
 
 from flask_paseto_extended import EncodeError, PasetoIssuer
 
@@ -13,9 +17,34 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
+        app.config["PASETO_USE_ISS"] = False
         app.config["PASETO_USE_IAT"] = True
         app.config["PASETO_EXP"] = 3600
+        app.config["PASETO_USE_KID"] = True
+        app.config["PASETO_SERIALIZER"] = json
+        app.config["PASETO_PRIVATE_KEYS"] = [
+            {
+                "version": 4,
+                "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
+            },
+        ]
+        issuer = PasetoIssuer(app)
+        assert hasattr(issuer, "issue")
+        assert callable(issuer.issue)
+        token = issuer.issue({"key": "value"})
+        assert isinstance(token, bytes)
+        key = Key.new(
+            4,
+            "public",
+            "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHrnbu7wEfAP9cGBOAHHwmH4Wsot1ciXBHwBBXQ4gsaI=\n-----END PUBLIC KEY-----",
+        )
+        decoded = pyseto.decode(key, token, deserializer=json)
+        assert "kid" in decoded.footer
+
+    def test_issuer_with_mandatory_configs(self):
+
+        app = flask.Flask(__name__)
+        app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "version": 4,
@@ -30,9 +59,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "version": 4,
@@ -48,9 +74,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "version": 4,
@@ -69,9 +92,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "iss": "https://issuer.exmaple",
@@ -86,9 +106,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "paserk": "k4.secret.cHFyc3R1dnd4eXp7fH1-f4CBgoOEhYaHiImKi4yNjo8c5WpIyC_5kWKhS8VEYSZ05dYfuTF-ZdQFV4D9vLTcNQ",
@@ -116,9 +133,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = iss
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "iss": "https://issuer.exmaple",
@@ -150,8 +164,6 @@ class TestPasetoIssuer:
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_USE_ISS"] = use_iss
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "iss": "https://issuer.exmaple",
@@ -182,9 +194,7 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
         app.config["PASETO_USE_IAT"] = use_iat
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "iss": "https://issuer.exmaple",
@@ -211,9 +221,38 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
         app.config["PASETO_EXP"] = exp
+        app.config["PASETO_PRIVATE_KEYS"] = [
+            {
+                "iss": "https://issuer.exmaple",
+                "version": 4,
+                "key": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILTL+0PfTOIQcn2VPkpxMwf6Gbt9n4UEFDjZ4RuUKjd0\n-----END PRIVATE KEY-----",
+            },
+        ]
+        with pytest.raises(ValueError) as err:
+            PasetoIssuer(app)
+            pytest.fail("init_app() must fail.")
+        assert msg in str(err.value)
+
+    @pytest.mark.parametrize(
+        "use_kid, msg",
+        [
+            (None, "PASETO_USE_KID must be bool."),
+            ("", "PASETO_USE_KID must be bool."),
+            (b"True", "PASETO_USE_KID must be bool."),
+            ("True", "PASETO_USE_KID must be bool."),
+            (b"False", "PASETO_USE_KID must be bool."),
+            ("False", "PASETO_USE_KID must be bool."),
+            ([True], "PASETO_USE_KID must be bool."),
+            ({"value": True}, "PASETO_USE_KID must be bool."),
+            (100, "PASETO_USE_KID must be bool."),
+        ],
+    )
+    def test_issuer_with_invalid_use_kid(self, use_kid, msg):
+
+        app = flask.Flask(__name__)
+        app.config["PASETO_ISS"] = "https://issuer.example"
+        app.config["PASETO_USE_KID"] = use_kid
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
                 "iss": "https://issuer.exmaple",
@@ -238,9 +277,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_SERIALIZER"] = serializer
         app.config["PASETO_PRIVATE_KEYS"] = [
             {
@@ -292,9 +328,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = True
-        app.config["PASETO_USE_IAT"] = True
-        app.config["PASETO_EXP"] = 3600
         app.config["PASETO_PRIVATE_KEYS"] = keys
         with pytest.raises(ValueError) as err:
             PasetoIssuer(app)
@@ -331,7 +364,6 @@ class TestPasetoIssuer:
 
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
-        app.config["PASETO_USE_ISS"] = False
         app.config["PASETO_SERIALIZER"] = _BadSerializer()
         app.config["PASETO_PRIVATE_KEYS"] = [
             {

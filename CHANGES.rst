@@ -4,6 +4,8 @@ Changes
 Unreleased
 ----------
 
+- Add support for kid. `#32 <https://github.com/dajiaji/python-cwt/pull/32>`__
+
 Version 0.3.3
 -------------
 

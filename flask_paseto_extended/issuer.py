@@ -9,6 +9,7 @@ from .exceptions import EncodeError
 PASETO_DEFAULT_USE_ISS: bool = True
 PASETO_DEFAULT_USE_IAT: bool = False
 PASETO_DEFAULT_EXP: int = 3600
+PASETO_DEFAULT_USE_KID: bool = False
 PASETO_DEFAULT_SERIALIZER: t.Any = json
 
 
@@ -45,6 +46,11 @@ class PasetoIssuer(object):
         self._exp = app.config.get("PASETO_EXP", PASETO_DEFAULT_EXP)
         if not isinstance(self._exp, int) or self._exp < 0:
             raise ValueError("PASETO_EXP must be int (>= 0).")
+
+        # _use_kid
+        self._use_kid = app.config.get("PASETO_USE_KID", PASETO_DEFAULT_USE_KID)
+        if not isinstance(self._use_kid, bool):
+            raise ValueError("PASETO_USE_KID must be bool.")
 
         # _serializer
         self._serializer: t.Any = app.config.get(
@@ -88,7 +94,7 @@ class PasetoIssuer(object):
                 except Exception as err:
                     raise ValueError("A 'key' must be a PEM formatted key.") from err
             kid = key.to_paserk_id()
-            self._keys[kid] = key
+            self._keys[kid] = {"key": key}
 
         self._paseto = Paseto.new(exp=self._exp, include_iat=self._use_iat)
         return
@@ -103,9 +109,18 @@ class PasetoIssuer(object):
         if not key:
             raise ValueError("A signing key is not found.")
 
+        footer: dict = {}
         if self._use_iss:
             payload["iss"] = self._iss
+        if self._use_kid:
+            footer["kid"] = list(self._keys.keys())[0] if len(self._keys) == 1 else kid
         try:
-            return self._paseto.encode(key, payload, serializer=self._serializer)
+            if not footer:
+                return self._paseto.encode(
+                    key["key"], payload, serializer=self._serializer
+                )
+            return self._paseto.encode(
+                key["key"], payload, footer, serializer=self._serializer
+            )
         except Exception as err:
             raise EncodeError("Failed to encode a token.") from err
