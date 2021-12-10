@@ -35,8 +35,9 @@ This class can be used for issuing `public` (signed) PASETO. It is suitable for 
         # },
     ]
     # app.config["PASETO_USE_ISS"] = True
-    # app.config["PASETO_USE_IAT"] = True
-    # app.config["PASETO_EXP"] = 3600
+    # app.config["PASETO_USE_IAT"] = False
+    # app.config["PASETO_EXP"] = 3600  # in seconds
+    # app.config["PASETO_USE_KID"] = False
     # app.config["PASETO_SERIALIZER"] = json # or e.g., cbor2
     issuer = PasetoIssuer(app)
 
