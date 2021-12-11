@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 from secrets import token_bytes
 
 import flask
@@ -17,9 +18,7 @@ class InvalidCookieClient(object):
 
         invalid_session = "v4.local.WQ8aDTTIbGL9FmTsdBeYoFTciDXl25i5xCbX6W-vpZ342mFyEOg08ghnSGIKqg2lMUGUDvgYly_o0QtGtSCpAl0IFgwLWvrkn9TI_Qfyv1SUbTOCGdPDNxDFlY8JALm9yO_MddM7dCUgrM4M6ofbNh6HiDqhmNr64wbjcdoYTLhsZxgRBVoOwTbtAYWaO-gp7msnGsr2zrJjZcJKEvPcLacHLh3tTWxJoHt41KRThTHlkicf9KHCWJXNA4jM7gWiDBiHdZjMC2_JsUyPDRhnMD1jNbQkakJY0tEAaiXWq9To_fa4BUgDYl4unIl5WQ08ZMa2560"
 
-        environ["HTTP_COOKIE"] = environ.get(
-            "HTTP_COOKIE", f"session={invalid_session}"
-        )
+        environ["HTTP_COOKIE"] = environ.get("HTTP_COOKIE", f"session={invalid_session}")
         return self.app(environ, start_response)
 
 

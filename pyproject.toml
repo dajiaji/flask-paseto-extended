@@ -1,58 +1,47 @@
 [build-system]
-requires = ["flit_core>=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "flask-paseto-extended"
-authors = [
-    {name = "Ajitomi Daisuke", email = "dajiaji@gmail.com"},
-]
+version = "0.3.3"
+description = "PASETO (Platform-Agnostic Security Tokens) for Flask applications."
+authors = ["Ajitomi Daisuke <dajiaji@gmail.com>"]
 readme = "README.md"
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "Natural Language :: English",
-    "License :: OSI Approved :: MIT License",
-    "Topic :: Utilities",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-]
-requires-python = ">=3.6"
-dynamic = ["version", "description"]
-dependencies = [
-    "Flask >=1.0,<3.0",
-    "Flask-Login >=0.5.0",
-    "pyseto >=1.4.0",
+repository = "https://github.com/dajiaji/flask-paseto-extended"
+
+include = [
+  ".pre-commit-config.yaml",
+  "CHANGES.rst",
+  "CODE_OF_CONDUCT.md",
+  "LICENSE",
+  "tox.ini",
+  "flask_paseto_extended/py.typed",
 ]
 
-[project.optional-dependencies]
-test = [
-    "pytest >=6.0.0",
-    "pytest-cov >=2.0",
-    "coverage[toml] >=5.0.4",
-]
-doc = [
-    "sphinx >=4.2.0",
-    "sphinx-rtd-theme >=1.0.0",
-    "sphinx-autodoc-typehints >=1.2.0",
-]
-dev = [
-    "mypy >=0.910",
-    "pre-commit >=2",
+[tool.poetry.dependencies]
+python = "^3.6.2"
+Flask = "^2.0.2"
+Flask-Login = "^0.5.0"
+pyseto = "^1.5.0"
+Sphinx = {version = "^4.3.1", extras = ["docs"]}
+sphinx-rtd-theme = {version = "^1.0.0", extras = ["docs"]}
+sphinx-autodoc-typehints = {version = "^1.12.0", extras = ["docs"]}
+
+[tool.poetry.extras]
+docs = [
+  "Sphinx",
+  "sphinx-rtd-theme",
+  "sphinx-autodoc-typehints",
 ]
 
-[project.urls]
-Documentation = "https://flask-paseto-extended.readthedocs.io"
-Source = "https://github.com/dajiaji/flask-paseto-extended"
-
-[tool.flit.module]
-name = "flask_paseto_extended"
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+pytest-cov = "^3.0.0"
+coverage = {extras = ["toml"], version = "^6.2"}
+tox = "^3.24.4"
+pre-commit = "^2.15.0"
+mypy = "^0.910"
 
 [tool.coverage.run]
 parallel = true
@@ -65,12 +54,8 @@ source = ["flask_paseto_extended", ".tox/*/site-packages"]
 [tool.coverage.report]
 show_missing = true
 
-[tool.isort]
-profile = "black"
-atomic = true
-combine_as_imports = true
+[tool.flake8]
+ignore = "E203,E501,"
 
 [tool.mypy]
-python_version = 3.8
 ignore_missing_imports = true
-warn_unused_ignores = true

@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 import flask
 from flask import jsonify, make_response
 

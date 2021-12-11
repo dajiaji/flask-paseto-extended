@@ -208,9 +208,7 @@ class TestPasetoLoginManager:
 
             def __call__(self, environ, start_response):
 
-                environ["HTTP_COOKIE"] = environ.get(
-                    "HTTP_COOKIE", f"remember_token={remember_token}"
-                )
+                environ["HTTP_COOKIE"] = environ.get("HTTP_COOKIE", f"remember_token={remember_token}")
                 return self.app(environ, start_response)
 
         app.wsgi_app = client(app.wsgi_app)

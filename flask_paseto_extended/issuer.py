@@ -53,12 +53,8 @@ class PasetoIssuer(object):
             raise ValueError("PASETO_USE_KID must be bool.")
 
         # _serializer
-        self._serializer: t.Any = app.config.get(
-            "PASETO_SERIALIZER", PASETO_DEFAULT_SERIALIZER
-        )
-        if not hasattr(self._serializer, "dumps") or not callable(
-            self._serializer.dumps
-        ):
+        self._serializer: t.Any = app.config.get("PASETO_SERIALIZER", PASETO_DEFAULT_SERIALIZER)
+        if not hasattr(self._serializer, "dumps") or not callable(self._serializer.dumps):
             raise ValueError("PASETO_SERIALIZER must have a callable 'dumps'.")
 
         # _keys
@@ -78,17 +74,13 @@ class PasetoIssuer(object):
                     raise ValueError("A local key is not allowed.")
             else:
                 if "version" not in k:
-                    raise ValueError(
-                        "A key object must have a 'paserk' or a pair of 'version' and 'key'."
-                    )
+                    raise ValueError("A key object must have a 'paserk' or a pair of 'version' and 'key'.")
                 if not isinstance(k["version"], int):
                     raise ValueError("A 'version' in PASETO_PRIVATE_KEYS must be int.")
                 if k["version"] not in PASETO_VERSIONS_ACCEPTABLE:
                     raise ValueError(f"Invalid PASETO version: {k['version']}.")
                 if "key" not in k:
-                    raise ValueError(
-                        "A key object must have a 'paserk' or a pair of 'version' and 'key'."
-                    )
+                    raise ValueError("A key object must have a 'paserk' or a pair of 'version' and 'key'.")
                 try:
                     key = Key.new(k["version"], "public", k["key"])
                 except Exception as err:
@@ -101,11 +93,7 @@ class PasetoIssuer(object):
 
     def issue(self, payload: dict, kid: str = "") -> str:
 
-        key = (
-            self._keys[list(self._keys)[0]]
-            if len(self._keys) == 1
-            else self._keys.get(kid, None)
-        )
+        key = self._keys[list(self._keys)[0]] if len(self._keys) == 1 else self._keys.get(kid, None)
         if not key:
             raise ValueError("A signing key is not found.")
 
@@ -116,11 +104,7 @@ class PasetoIssuer(object):
             footer["kid"] = list(self._keys.keys())[0] if len(self._keys) == 1 else kid
         try:
             if not footer:
-                return self._paseto.encode(
-                    key["key"], payload, serializer=self._serializer
-                )
-            return self._paseto.encode(
-                key["key"], payload, footer, serializer=self._serializer
-            )
+                return self._paseto.encode(key["key"], payload, serializer=self._serializer)
+            return self._paseto.encode(key["key"], payload, footer, serializer=self._serializer)
         except Exception as err:
             raise EncodeError("Failed to encode a token.") from err

@@ -34,9 +34,7 @@ class PasetoCookieSessionInterface(SessionInterface):
         except Exception:
             return SecureCookieSession()
 
-    def save_session(
-        self, app: Flask, session: SessionMixin, response: Response
-    ) -> None:
+    def save_session(self, app: Flask, session: SessionMixin, response: Response) -> None:
 
         name = self.get_cookie_name(app)
         domain = self.get_cookie_domain(app)
@@ -46,9 +44,7 @@ class PasetoCookieSessionInterface(SessionInterface):
 
         if not session:
             if session.modified:
-                response.delete_cookie(
-                    name, domain=domain, path=path, secure=secure, samesite=samesite
-                )
+                response.delete_cookie(name, domain=domain, path=path, secure=secure, samesite=samesite)
             return
 
         if session.accessed:
