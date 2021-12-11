@@ -24,6 +24,16 @@ python = "^3.6.2"
 Flask = "^2.0.2"
 Flask-Login = "^0.5.0"
 pyseto = "^1.5.0"
+Sphinx = {version = "^4.3.1", extras = ["docs"]}
+sphinx-rtd-theme = {version = "^1.0.0", extras = ["docs"]}
+sphinx-autodoc-typehints = {version = "^1.12.0", extras = ["docs"]}
+
+[tool.poetry.extras]
+docs = [
+  "Sphinx",
+  "sphinx-rtd-theme",
+  "sphinx-autodoc-typehints",
+]
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -32,16 +42,6 @@ coverage = {extras = ["toml"], version = "^6.2"}
 tox = "^3.24.4"
 pre-commit = "^2.15.0"
 mypy = "^0.910"
-sphinx = {version = "^4.2.0", optional = true}
-sphinx-rtd-theme = {version = "^1.0.0", optional = true}
-sphinx-autodoc-typehints = {version = "^1.2.0", optional = true}
-
-[tool.poetry.extras]
-docs = [
-  "sphinx",
-  "sphinx-rtd-theme",
-  "sphinx-autodoc-typehints",
-]
 
 [tool.coverage.run]
 parallel = true
