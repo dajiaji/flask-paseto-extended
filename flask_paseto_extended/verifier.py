@@ -28,9 +28,7 @@ class PasetoVerifier(object):
 
         # Callbacks
         self._token_loader: t.Callable[[flask.Request], str] = _default_token_loader
-        self._verification_error_handler: t.Callable[
-            [None], flask.Response
-        ] = _default_verification_error_handler
+        self._verification_error_handler: t.Callable[[None], flask.Response] = _default_verification_error_handler
 
     def init_app(self, app, add_context_processor=True):
         """
@@ -44,12 +42,8 @@ class PasetoVerifier(object):
             raise ValueError("PASETO_SKEW must be int (>= 0).")
 
         # _deserializer
-        self._deserializer: t.Any = app.config.get(
-            "PASETO_DESERIALIZER", PASETO_DEFAULT_DESERIALIZER
-        )
-        if not hasattr(self._deserializer, "loads") or not callable(
-            self._deserializer.loads
-        ):
+        self._deserializer: t.Any = app.config.get("PASETO_DESERIALIZER", PASETO_DEFAULT_DESERIALIZER)
+        if not hasattr(self._deserializer, "loads") or not callable(self._deserializer.loads):
             raise ValueError("PASETO_DESERIALIZER must have a callable 'loads'.")
 
         # _keys
@@ -70,17 +64,13 @@ class PasetoVerifier(object):
                     raise ValueError("A local key is not allowed.")
             else:
                 if "version" not in k:
-                    raise ValueError(
-                        "A key object must have a 'paserk' or a pair of 'version' and 'key'."
-                    )
+                    raise ValueError("A key object must have a 'paserk' or a pair of 'version' and 'key'.")
                 if not isinstance(k["version"], int):
                     raise ValueError("A 'version' in PASETO_PUBLIC_KEYS must be int.")
                 if k["version"] not in PASETO_VERSIONS_ACCEPTABLE:
                     raise ValueError(f"Invalid PASETO version: {k['version']}.")
                 if "key" not in k:
-                    raise ValueError(
-                        "A key object must have a 'paserk' or a pair of 'version' and 'key'."
-                    )
+                    raise ValueError("A key object must have a 'paserk' or a pair of 'version' and 'key'.")
                 try:
                     key = Key.new(k["version"], "public", k["key"])
                 except Exception as err:
@@ -95,9 +85,7 @@ class PasetoVerifier(object):
         self._paseto = Paseto.new(leeway=self._skew)
         return
 
-    def token_loader(
-        self, cb: t.Callable[[flask.Request], str]
-    ) -> t.Callable[[flask.Request], str]:
+    def token_loader(self, cb: t.Callable[[flask.Request], str]) -> t.Callable[[flask.Request], str]:
         """ """
         self._token_loader = cb
         return self.token_loader_callback
@@ -107,9 +95,7 @@ class PasetoVerifier(object):
         """ """
         return self._token_loader
 
-    def verification_error_handler(
-        self, cb: t.Callable[[None], flask.Response]
-    ) -> t.Callable[[None], flask.Response]:
+    def verification_error_handler(self, cb: t.Callable[[None], flask.Response]) -> t.Callable[[None], flask.Response]:
         """ """
         self._verification_error_handler = cb
         return self.verification_error_handler_callback
@@ -126,9 +112,7 @@ class PasetoVerifier(object):
         if not token:
             ctx.paseto = Token(
                 False,
-                error=Exception(
-                    "A PASETO token could not be loaded via 'token_loader'."
-                ),
+                error=Exception("A PASETO token could not be loaded via 'token_loader'."),
             )
             return
         try:

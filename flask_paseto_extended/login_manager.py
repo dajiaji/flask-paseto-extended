@@ -21,9 +21,7 @@ class PasetoLoginManager(LoginManager):
 
         super().init_app(app, add_context_processor)
 
-        self.paseto_version = app.config.get(
-            "REMEMBER_COOKIE_PASETO_VERSION", DEFAULT_REMEMBER_COOKIE_PASETO_VERSION
-        )
+        self.paseto_version = app.config.get("REMEMBER_COOKIE_PASETO_VERSION", DEFAULT_REMEMBER_COOKIE_PASETO_VERSION)
         if not isinstance(self.paseto_version, int):
             raise TypeError("REMEMBER_COOKIE_PASETO_VERSION must be int")
         if self.paseto_version not in [1, 2, 3, 4]:
@@ -59,9 +57,7 @@ class PasetoLoginManager(LoginManager):
         try:
             expires = datetime.utcnow() + duration
         except TypeError as err:
-            raise TypeError(
-                "REMEMBER_COOKIE_DURATION must be datetime.timedelta"
-            ) from err
+            raise TypeError("REMEMBER_COOKIE_DURATION must be datetime.timedelta") from err
 
         # actually set it
         response.set_cookie(
