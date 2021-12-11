@@ -4,7 +4,12 @@ Changes
 Unreleased
 ----------
 
-- Use poetry. `#33 <https://github.com/dajiaji/python-cwt/pull/33>`__
+Version 0.4.0
+-------------
+
+Released 2021-12-11
+
+- Migrate the project to poetry. `#33 <https://github.com/dajiaji/python-cwt/pull/33>`__
 - Add support for kid. `#32 <https://github.com/dajiaji/python-cwt/pull/32>`__
 
 Version 0.3.3
