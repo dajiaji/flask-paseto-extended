@@ -17,7 +17,9 @@ class PasetoCookieSessionInterface(SessionInterface):
         self._serializer = TaggedJSONSerializer()
 
     def open_session(self, app: Flask, request: Request) -> Optional[SessionMixin]:
-
+        """
+        Opens a session.
+        """
         if not app.secret_key:
             return None
 
@@ -35,7 +37,9 @@ class PasetoCookieSessionInterface(SessionInterface):
             return SecureCookieSession()
 
     def save_session(self, app: Flask, session: SessionMixin, response: Response) -> None:
-
+        """
+        Saves a session.
+        """
         name = self.get_cookie_name(app)
         domain = self.get_cookie_domain(app)
         path = self.get_cookie_path(app)
