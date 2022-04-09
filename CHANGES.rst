@@ -4,6 +4,17 @@ Changes
 Unreleased
 ----------
 
+Version 0.4.1
+-------------
+
+Released 2022-04-09
+
+- Refine pyproject, tox.ini and github actions. `#44 <https://github.com/dajiaji/python-cwt/pull/44>`__
+- Update dependencies.
+    - Update mypy requirement from ^0.910 to ^0.942. `#43 <https://github.com/dajiaji/python-cwt/pull/43>`__
+    - Update pre-commit-hooks from 4.0.1 to 4.1.0. `#37 <https://github.com/dajiaji/python-cwt/pull/37>`__
+    - Update pytest requirement from ^5.2 to ^6.2. `#36 <https://github.com/dajiaji/python-cwt/pull/36>`__
+
 Version 0.4.0
 -------------
 
