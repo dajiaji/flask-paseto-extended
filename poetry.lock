@@ -486,20 +486,20 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pyseto"
-version = "1.6.7"
+version = "1.6.8"
 description = "A Python implementation of PASETO/PASERK."
 category = "main"
 optional = false
 python-versions = ">=3.6.2,<4.0.0"
 
 [package.dependencies]
-cryptography = ">=36.0.0,<37.0.0"
+cryptography = ">=36,<38"
 iso8601 = ">=1.0.2,<2.0.0"
 passlib = {version = ">=1.7.4,<2.0.0", extras = ["argon2"]}
 pycryptodomex = ">=3.12.0,<4.0.0"
-Sphinx = {version = ">=4.3.2,<5.0.0", extras = ["docs"]}
-sphinx-autodoc-typehints = {version = "1.12.0", extras = ["docs"]}
-sphinx-rtd-theme = {version = ">=1.0.0,<2.0.0", extras = ["docs"]}
+
+[package.extras]
+docs = ["Sphinx[docs] (>=4.3.2,<5.0.0)", "sphinx-autodoc-typehints[docs] (==1.12.0)", "sphinx-rtd-theme[docs] (>=1.0.0,<2.0.0)"]
 
 [[package]]
 name = "pytest"
@@ -1276,8 +1276,8 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pyseto = [
-    {file = "pyseto-1.6.7-py3-none-any.whl", hash = "sha256:898c653b23f46eb332046f0462a4c0db2e07aebbba3c157c67a36108e16af433"},
-    {file = "pyseto-1.6.7.tar.gz", hash = "sha256:aa0b5f429e56be8722ce524c57f3de883b4a55fd5729fce8fa411c198267f2cc"},
+    {file = "pyseto-1.6.8-py3-none-any.whl", hash = "sha256:4409d7cf056bdc1e2353fc43b3300f5c77b41a57577586f858b255949f992c95"},
+    {file = "pyseto-1.6.8.tar.gz", hash = "sha256:29ba0e9841ed616ac60720f56b80c15a0b2a6a14a8c9a8c1fd9a83094b2b58bb"},
 ]
 pytest = [
     {file = "pytest-7.0.1-py3-none-any.whl", hash = "sha256:9ce3ff477af913ecf6321fe337b93a2c0dcf2a0a1439c43f5452112c1e4280db"},
