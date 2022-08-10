@@ -405,8 +405,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-test = ["pytest-mock (>=3.6)", "pytest-cov (>=2.7)", "pytest (>=6)", "appdirs (==1.4.4)"]
-docs = ["sphinx-autodoc-typehints (>=1.12)", "proselint (>=0.10.2)", "furo (>=2021.7.5b38)", "Sphinx (>=4)"]
+docs = ["Sphinx (>=4)", "furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-autodoc-typehints (>=1.12)"]
+test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)"]
 
 [[package]]
 name = "pluggy"
@@ -486,7 +486,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pyseto"
-version = "1.6.9"
+version = "1.6.10"
 description = "A Python implementation of PASETO/PASERK."
 category = "main"
 optional = false
@@ -719,8 +719,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
+lint = ["docutils-stubs", "mypy", "flake8"]
 
 [[package]]
 name = "sphinxcontrib-websupport"
@@ -1276,8 +1276,8 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pyseto = [
-    {file = "pyseto-1.6.9-py3-none-any.whl", hash = "sha256:1c01744e6e8bbc95706fe80fcddecec037f8aaa2ff54aa2c2e79831d12edae3d"},
-    {file = "pyseto-1.6.9.tar.gz", hash = "sha256:0d9f9bdc0116d2bd44aa88bc314b435c4ac50b345236183d184a43f37fe3ea4c"},
+    {file = "pyseto-1.6.10-py3-none-any.whl", hash = "sha256:b4d7b3f7766fc6c273b8c1f78374ceb41b4a5ea935bb67c6dd4b5443434e5e05"},
+    {file = "pyseto-1.6.10.tar.gz", hash = "sha256:861b62c9103c3c2e9e955603a41d566675adf6681293a621b58b64aac8d7cf21"},
 ]
 pytest = [
     {file = "pytest-7.0.1-py3-none-any.whl", hash = "sha256:9ce3ff477af913ecf6321fe337b93a2c0dcf2a0a1439c43f5452112c1e4280db"},
