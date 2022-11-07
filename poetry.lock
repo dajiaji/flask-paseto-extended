@@ -489,7 +489,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pyseto"
-version = "1.6.11"
+version = "1.6.12"
 description = "A Python implementation of PASETO/PASERK."
 category = "main"
 optional = false
@@ -1279,8 +1279,8 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pyseto = [
-    {file = "pyseto-1.6.11-py3-none-any.whl", hash = "sha256:f2bf839ae7c9914999c9d6c1168bf9fbada734f49880a218ccd07d7492a0e003"},
-    {file = "pyseto-1.6.11.tar.gz", hash = "sha256:928f7890bacd156480b31b2f6693120634cde09023beee6c24fb8eb9154a2940"},
+    {file = "pyseto-1.6.12-py3-none-any.whl", hash = "sha256:ac44f569f935f1d2dc506a04c6975381dbb66c17b0386cdf21253209f825c881"},
+    {file = "pyseto-1.6.12.tar.gz", hash = "sha256:bce993bf899dbd092dabe048404f81f26549f0fcd241833b7aab5b32366d3dee"},
 ]
 pytest = [
     {file = "pytest-7.0.1-py3-none-any.whl", hash = "sha256:9ce3ff477af913ecf6321fe337b93a2c0dcf2a0a1439c43f5452112c1e4280db"},
