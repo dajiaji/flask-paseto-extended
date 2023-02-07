@@ -9,7 +9,6 @@ from pyseto import Key
 
 class PasetoCookieSessionInterface(SessionInterface):
     def __init__(self, paseto_version: int = 4):
-
         if not isinstance(paseto_version, int) or paseto_version not in [1, 2, 3, 4]:
             raise ValueError(f"Invalid PASETO version: {paseto_version}")
 

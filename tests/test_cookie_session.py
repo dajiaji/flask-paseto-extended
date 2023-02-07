@@ -11,11 +11,9 @@ from flask_paseto_extended import PasetoCookieSessionInterface
 
 class InvalidCookieClient(object):
     def __init__(self, app):
-
         self.app = app
 
     def __call__(self, environ, start_response):
-
         invalid_session = "v4.local.WQ8aDTTIbGL9FmTsdBeYoFTciDXl25i5xCbX6W-vpZ342mFyEOg08ghnSGIKqg2lMUGUDvgYly_o0QtGtSCpAl0IFgwLWvrkn9TI_Qfyv1SUbTOCGdPDNxDFlY8JALm9yO_MddM7dCUgrM4M6ofbNh6HiDqhmNr64wbjcdoYTLhsZxgRBVoOwTbtAYWaO-gp7msnGsr2zrJjZcJKEvPcLacHLh3tTWxJoHt41KRThTHlkicf9KHCWJXNA4jM7gWiDBiHdZjMC2_JsUyPDRhnMD1jNbQkakJY0tEAaiXWq9To_fa4BUgDYl4unIl5WQ08ZMa2560"
 
         environ["HTTP_COOKIE"] = environ.get("HTTP_COOKIE", f"session={invalid_session}")
@@ -24,7 +22,6 @@ class InvalidCookieClient(object):
 
 @pytest.fixture(scope="function")
 def app():
-
     app = flask.Flask(__name__)
 
     login_manager = LoginManager(app)
@@ -38,7 +35,6 @@ def app():
 
     @login_manager.user_loader
     def user_loader(email):
-
         if email not in users:
             return
 
@@ -48,7 +44,6 @@ def app():
 
     @login_manager.request_loader
     def request_loader(request):
-
         email = request.form.get("email")
         if email not in users:
             return
@@ -63,7 +58,6 @@ def app():
 
     @app.route("/login", methods=["POST"])
     def login():
-
         email = flask.request.form["email"]
         if flask.request.form["password"] == users[email]["password"]:
             user = User()
@@ -74,14 +68,12 @@ def app():
 
     @app.route("/logout")
     def logout():
-
         flask_login.logout_user()
         return "Logged out"
 
     @app.route("/protected")
     @flask_login.login_required
     def protected():
-
         return "Logged in as: " + flask_login.current_user.id
 
     return app
@@ -93,7 +85,6 @@ class TestPasetoCookieSessionInterface:
     """
 
     def test_cookie_session(self, app):
-
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
         with app.test_client() as c:
@@ -119,7 +110,6 @@ class TestPasetoCookieSessionInterface:
         ],
     )
     def test_cookie_session_with_paseto_version(self, app, version, key):
-
         app.secret_key = key
         app.session_interface = PasetoCookieSessionInterface(paseto_version=version)
         with app.test_client() as c:
@@ -137,7 +127,6 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
 
     def test_cookie_session_without_secret_key(self, app):
-
         # app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
         with app.test_client() as c:
@@ -149,7 +138,6 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 500
 
     def test_cookie_session_encode_with_invalid_key(self, app):
-
         app.secret_key = "not 32bytes secret for v2"
         app.session_interface = PasetoCookieSessionInterface(paseto_version=2)
         with app.test_client() as c:
@@ -161,7 +149,6 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 500
 
     def test_cookie_session_decode_with_another_key(self, app):
-
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
         with app.test_client() as c:
@@ -179,7 +166,6 @@ class TestPasetoCookieSessionInterface:
             assert res.data == b"Unauthorized"
 
     def test_cookie_session_decode_with_invalid_paseto(self, app):
-
         app.secret_key = "my super secret"
         app.session_interface = PasetoCookieSessionInterface()
         with app.test_client() as c:
@@ -208,7 +194,6 @@ class TestPasetoCookieSessionInterface:
         ],
     )
     def test_cookie_session_with_invalid_version(self, app, version, msg):
-
         app.secret_key = "super secret string"
         with pytest.raises(ValueError) as err:
             app.session_interface = PasetoCookieSessionInterface(paseto_version=version)

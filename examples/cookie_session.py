@@ -21,7 +21,6 @@ class User(flask_login.UserMixin):
 
 @login_manager.user_loader
 def user_loader(email):
-
     if email not in users:
         return
 
@@ -32,7 +31,6 @@ def user_loader(email):
 
 @login_manager.request_loader
 def request_loader(request):
-
     email = request.form.get("email")
     if email not in users:
         return

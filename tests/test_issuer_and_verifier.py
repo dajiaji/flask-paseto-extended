@@ -15,7 +15,6 @@ from flask_paseto_extended import (
 
 @pytest.fixture(scope="function")
 def app():
-
     # Mock user database.
     users = {"foo@bar.example": {"password": "mysecret"}}
 
@@ -92,7 +91,6 @@ class TestPasetoIssuerAndVerifier:
     """
 
     def test_issuer_and_verifier(self, app):
-
         with app.test_client() as c:
             res = c.post(
                 "/login",
@@ -108,7 +106,6 @@ class TestPasetoIssuerAndVerifier:
             assert res.status_code == 200
 
     def test_issuer_and_verifier_without_login(self, app):
-
         with app.test_client() as c:
             res = c.get("/protected")
             assert res.status_code == 200
