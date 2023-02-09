@@ -15,7 +15,6 @@ PASETO_DEFAULT_SERIALIZER: t.Any = json
 
 class PasetoIssuer(object):
     def __init__(self, app=None, add_context_processor=True):
-
         if app is not None:
             self.init_app(app, add_context_processor)
 
@@ -92,7 +91,6 @@ class PasetoIssuer(object):
         return
 
     def issue(self, payload: dict, kid: str = "") -> str:
-
         key = self._keys[list(self._keys)[0]] if len(self._keys) == 1 else self._keys.get(kid, None)
         if not key:
             raise ValueError("A signing key is not found.")

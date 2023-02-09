@@ -18,7 +18,6 @@ DEFAULT_REMEMBER_COOKIE_PASETO_VERSION = 4
 
 class PasetoLoginManager(LoginManager):
     def init_app(self, app, add_context_processor=True):
-
         super().init_app(app, add_context_processor)
 
         self.paseto_version = app.config.get("REMEMBER_COOKIE_PASETO_VERSION", DEFAULT_REMEMBER_COOKIE_PASETO_VERSION)
@@ -32,7 +31,6 @@ class PasetoLoginManager(LoginManager):
             raise TypeError("REMEMBER_COOKIE_PASETO_KEY must be str")
 
     def _set_cookie(self, response):
-
         # cookie settings
         config = current_app.config
         cookie_name = config.get("REMEMBER_COOKIE_NAME", COOKIE_NAME)
@@ -73,7 +71,6 @@ class PasetoLoginManager(LoginManager):
         return
 
     def _load_user_from_remember_cookie(self, cookie):
-
         user_id = decode_cookie(cookie, self._remember_cookie_key)
         if user_id is None:
             return None

@@ -22,7 +22,6 @@ class Token(object):
         footer: t.Union[bytes, dict] = b"",
         error: t.Optional[Exception] = None,
     ):
-
         self._is_verified = is_verified
         self._version = version
         self._purpose = purpose
@@ -92,7 +91,6 @@ def paseto_required():
     def wrapper(func):
         @wraps(func)
         def decorated_view(*args, **kwargs):
-
             if not hasattr(current_app, "paseto_verifier"):
                 raise ConfigError("paseto_verifier is not set in the current_app.")
 

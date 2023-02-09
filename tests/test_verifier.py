@@ -13,7 +13,6 @@ from flask_paseto_extended import (
 
 @pytest.fixture(scope="function")
 def app_with_wrong_public_key():
-
     users = {"foo@bar.example": {"password": "mysecret"}}
 
     app = flask.Flask(__name__)
@@ -75,7 +74,6 @@ def app_with_wrong_public_key():
 
 @pytest.fixture(scope="function")
 def app_without_verifier():
-
     users = {"foo@bar.example": {"password": "mysecret"}}
 
     app = flask.Flask(__name__)
@@ -130,7 +128,6 @@ class TestPasetoVerifier:
     """
 
     def test_verifier(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_PUBLIC_KEYS"] = [
@@ -161,7 +158,6 @@ class TestPasetoVerifier:
         assert "verification_error_handler must be defined." in str(err.value)
 
     def test_verifier_init_app(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_PUBLIC_KEYS"] = [
@@ -193,7 +189,6 @@ class TestPasetoVerifier:
         assert "verification_error_handler must be defined." in str(err.value)
 
     def test_verifier_init_app_with_paserk(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_PUBLIC_KEYS"] = [
@@ -207,7 +202,6 @@ class TestPasetoVerifier:
         assert hasattr(verifier, "token_loader")
 
     def test_verifier_init_app_with_multiple_paserks(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_PUBLIC_KEYS"] = [
@@ -223,7 +217,6 @@ class TestPasetoVerifier:
         assert hasattr(verifier, "token_loader")
 
     def test_verifier_paseto_verification_failed(self, app_with_wrong_public_key):
-
         with app_with_wrong_public_key.test_client() as c:
             res = c.post(
                 "/login",
@@ -236,7 +229,6 @@ class TestPasetoVerifier:
             assert res.data == b"Unauthorized"
 
     def test_verifier_paseto_required_before_setting(self, app_without_verifier):
-
         with app_without_verifier.test_client() as c:
             res = c.post(
                 "/login",
@@ -256,7 +248,6 @@ class TestPasetoVerifier:
         ],
     )
     def test_verifier_with_invalid_skew(self, skew, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = skew
         app.config["PASETO_PUBLIC_KEYS"] = [
@@ -280,7 +271,6 @@ class TestPasetoVerifier:
         ],
     )
     def test_verifier_with_invalid_deserializer(self, deserializer, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_DESERIALIZER"] = deserializer
@@ -340,7 +330,6 @@ class TestPasetoVerifier:
         ],
     )
     def test_verifier_with_invalid_keys(self, keys, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
         app.config["PASETO_PUBLIC_KEYS"] = keys

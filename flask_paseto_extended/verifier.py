@@ -22,7 +22,6 @@ def _default_verification_error_handler() -> flask.Response:
 
 class PasetoVerifier(object):
     def __init__(self, app=None, add_context_processor=True):
-
         if app is not None:
             self.init_app(app, add_context_processor)
 
@@ -106,7 +105,6 @@ class PasetoVerifier(object):
         return self._verification_error_handler
 
     def _load_and_verify(self):
-
         ctx = _request_ctx_stack.top
         token = self._token_loader(request)
         if not token:

@@ -15,7 +15,6 @@ class TestPasetoIssuer:
     """
 
     def test_issuer(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_USE_ISS"] = False
@@ -43,7 +42,6 @@ class TestPasetoIssuer:
         assert "kid" in decoded.footer
 
     def test_issuer_with_mandatory_configs(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -57,7 +55,6 @@ class TestPasetoIssuer:
         assert callable(issuer.issue)
 
     def test_issuer_init_app(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -72,7 +69,6 @@ class TestPasetoIssuer:
         assert callable(issuer.issue)
 
     def test_issuer_with_multiple_keys(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -90,7 +86,6 @@ class TestPasetoIssuer:
         assert callable(issuer.issue)
 
     def test_issuer_init_app_with_paserk(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -104,7 +99,6 @@ class TestPasetoIssuer:
         assert hasattr(issuer, "issue")
 
     def test_issuer_init_app_with_multiple_paserks(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -131,7 +125,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_iss(self, iss, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = iss
         app.config["PASETO_PRIVATE_KEYS"] = [
@@ -161,7 +154,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_use_iss(self, use_iss, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_USE_ISS"] = use_iss
@@ -192,7 +184,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_use_iat(self, use_iat, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_USE_IAT"] = use_iat
@@ -219,7 +210,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_exp(self, exp, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_EXP"] = exp
@@ -250,7 +240,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_use_kid(self, use_kid, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_USE_KID"] = use_kid
@@ -275,7 +264,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_serializer(self, serializer, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_SERIALIZER"] = serializer
@@ -326,7 +314,6 @@ class TestPasetoIssuer:
         ],
     )
     def test_issuer_with_invalid_keys(self, keys, msg):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = keys
@@ -336,7 +323,6 @@ class TestPasetoIssuer:
         assert msg in str(err.value)
 
     def test_issuer_issue_with_bad_kid(self):
-
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
         app.config["PASETO_PRIVATE_KEYS"] = [

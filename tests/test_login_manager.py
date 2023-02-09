@@ -19,7 +19,6 @@ class User(flask_login.UserMixin):
 
 # Wrapper func of PasetoLoginManager().
 def new_login_manager(app):
-
     login_manager = PasetoLoginManager(app)
 
     @login_manager.user_loader
@@ -48,12 +47,10 @@ def new_login_manager(app):
 
 @pytest.fixture(scope="function")
 def app():
-
     app = flask.Flask(__name__)
 
     @app.route("/login", methods=["POST"])
     def login():
-
         email = flask.request.form["email"]
         if flask.request.form["password"] == users[email]["password"]:
             user = User()
@@ -64,14 +61,12 @@ def app():
 
     @app.route("/logout")
     def logout():
-
         flask_login.logout_user()
         return "Logged out"
 
     @app.route("/protected")
     @flask_login.login_required
     def protected():
-
         return "Logged in as: " + flask_login.current_user.id
 
     return app
@@ -79,12 +74,10 @@ def app():
 
 @pytest.fixture(scope="function")
 def app_with_duration():
-
     app = flask.Flask(__name__)
 
     @app.route("/login", methods=["POST"])
     def login():
-
         email = flask.request.form["email"]
         if flask.request.form["password"] == users[email]["password"]:
             user = User()
@@ -95,14 +88,12 @@ def app_with_duration():
 
     @app.route("/logout")
     def logout():
-
         flask_login.logout_user()
         return "Logged out"
 
     @app.route("/protected")
     @flask_login.login_required
     def protected():
-
         return "Logged in as: " + flask_login.current_user.id
 
     return app
@@ -114,7 +105,6 @@ class TestPasetoLoginManager:
     """
 
     def test_login_manager(self, app):
-
         app.secret_key = "super secret string"
         login_manager = new_login_manager(app)
 
@@ -134,7 +124,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 200
 
     def test_login_manager_with_duration1(self, app):
-
         app.config["REMEMBER_COOKIE_DURATION"] = 1
         app.secret_key = "super secret string"
         new_login_manager(app)
@@ -153,7 +142,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 200
 
     def test_login_manager_with_duration2(self, app_with_duration):
-
         # app.config["REMEMBER_COOKIE_DURATION"] = 1
         app_with_duration.secret_key = "super secret string"
         new_login_manager(app_with_duration)
@@ -172,7 +160,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 200
 
     def test_login_manager_with_invalid_duration(self, app):
-
         app.config["REMEMBER_COOKIE_DURATION"] = "1"
         app.secret_key = "super secret string"
         new_login_manager(app)
@@ -186,7 +173,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 500
 
     def test_login_manager_with_refresh(self, app):
-
         app.config["REMEMBER_COOKIE_DURATION"] = 1
         app.secret_key = "super secret string"
         new_login_manager(app)
@@ -203,11 +189,9 @@ class TestPasetoLoginManager:
 
         class client(object):
             def __init__(self, app):
-
                 self.app = app
 
             def __call__(self, environ, start_response):
-
                 environ["HTTP_COOKIE"] = environ.get("HTTP_COOKIE", f"remember_token={remember_token}")
                 return self.app(environ, start_response)
 
@@ -227,7 +211,6 @@ class TestPasetoLoginManager:
         ],
     )
     def test_login_manager_with_paseto_version(self, app, version, key):
-
         app.secret_key = key
         app.config["REMEMBER_COOKIE_PASETO_VERSION"] = version
 
@@ -250,7 +233,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 200
 
     def test_login_manager_with_remember_cookie_key(self, app):
-
         app.secret_key = "super secret string"
         app.config["REMEMBER_COOKIE_PASETO_KEY"] = "my super secret"
         login_manager = new_login_manager(app)
@@ -279,7 +261,6 @@ class TestPasetoLoginManager:
         ],
     )
     def test_login_manager_with_unsupported_version(self, app, version, msg):
-
         app.secret_key = "super secret string"
         app.config["REMEMBER_COOKIE_PASETO_VERSION"] = version
 
@@ -297,7 +278,6 @@ class TestPasetoLoginManager:
         ],
     )
     def test_login_manager_with_invalid_version(self, app, version, msg):
-
         app.secret_key = "super secret string"
         app.config["REMEMBER_COOKIE_PASETO_VERSION"] = version
 
@@ -316,7 +296,6 @@ class TestPasetoLoginManager:
         ],
     )
     def test_login_manager_with_invalid_type_of_key(self, app, key, msg):
-
         app.secret_key = "super secret string"
         app.config["REMEMBER_COOKIE_PASETO_KEY"] = key
 
@@ -326,7 +305,6 @@ class TestPasetoLoginManager:
         assert msg in str(err.value)
 
     def test_login_manager_without_secret_key(self, app):
-
         # app.secret_key = "super secret string"
         new_login_manager(app)
 
@@ -339,7 +317,6 @@ class TestPasetoLoginManager:
             assert res.status_code == 500
 
     def test_login_manager_with_invalid_key(self, app):
-
         app.secret_key = "not 32bytes secret for v2"
         app.config["REMEMBER_COOKIE_PASETO_VERSION"] = 2
         new_login_manager(app)
