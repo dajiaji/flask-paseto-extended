@@ -23,14 +23,14 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-Werkzeug = "2.0.3"
-Flask = "^2.0.2"
-Flask-Login = "0.5.0"
-pyseto = "^1.5.0"
-Sphinx = {version = ">=4.3.1,<6.0.0", extras = ["docs"]}
+python = ">=3.8,<4.0"
+Werkzeug = "^2.3.7"
+Flask = "^2.3.3"
+Flask-Login = "^0.6.2"
+pyseto = "^1.7.4"
+Sphinx = {version = ">=7.0.1", extras = ["docs"]}
 sphinx-rtd-theme = {version = "^1.0.0", extras = ["docs"]}
-sphinx-autodoc-typehints = {version = "1.12.0", extras = ["docs"]}
+sphinx-autodoc-typehints = {version = "^1.23.4", extras = ["docs"]}
 
 [tool.poetry.extras]
 docs = [
