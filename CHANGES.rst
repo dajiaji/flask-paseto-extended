@@ -4,7 +4,35 @@ Changes
 Unreleased
 ----------
 
-Version 1.4.2
+Version 0.5.0
+-------------
+
+Released 2023-09-17
+
+- Drop support for Python 3.7. `#94 <https://github.com/dajiaji/flask-paseto-extended/pull/94>`__
+- Add SECURITY.md. `#89 <https://github.com/dajiaji/flask-paseto-extended/pull/89>`__
+- Use allowlist_externals on tox. `#84 <https://github.com/dajiaji/flask-paseto-extended/pull/84>`__
+- Update dependencies.
+    - Bump Werkzeug to 2.3.7. `#99 <https://github.com/dajiaji/flask-paseto-extended/pull/99>`__
+    - Bump Flask to 2.3.3. `#99 <https://github.com/dajiaji/flask-paseto-extended/pull/99>`__
+    - Bump Flask-Login to 0.6.2. `#99 <https://github.com/dajiaji/flask-paseto-extended/pull/99>`__
+    - Bump pyseto to 1.7.4. `#99 <https://github.com/dajiaji/flask-paseto-extended/pull/99>`__
+- Update dev dependencies.
+    - Bump pytest to 7.2.0. `#101 <https://github.com/dajiaji/flask-paseto-extended/pull/101>`__
+    - Bump pre-commit/flake8 to 6.1.0. `#100 <https://github.com/dajiaji/flask-paseto-extended/pull/100>`__
+    - Bump pre-commit/black to 23.9.1. `#100 <https://github.com/dajiaji/flask-paseto-extended/pull/100>`__
+    - Bump pre-commit/blacken-docs to 1.16.0. `#100 <https://github.com/dajiaji/flask-paseto-extended/pull/100>`__
+    - Bump sphinx to 7.0.1. `#99 <https://github.com/dajiaji/flask-paseto-extended/pull/99>`__
+    - Bump requests to 2.31.0. `#97 <https://github.com/dajiaji/flask-paseto-extended/pull/97>`__
+    - Bump certifi to 2023.7.22. `#96 <https://github.com/dajiaji/flask-paseto-extended/pull/96>`__
+    - Bump pygments to 2.15.0. `#95 <https://github.com/dajiaji/flask-paseto-extended/pull/95>`__
+    - Bump pre-commit/isort to 5.11.4. `#86 <https://github.com/dajiaji/flask-paseto-extended/pull/86>`__
+    - Bump tox to 3.28.0. `#85 <https://github.com/dajiaji/flask-paseto-extended/pull/85>`__
+    - Bump pre-commit/pre-commit-hooks to 4.4.0. `#78 <https://github.com/dajiaji/flask-paseto-extended/pull/78>`__
+    - Bump sphinx-rtd-theme to 1.1.1. `#77 <https://github.com/dajiaji/flask-paseto-extended/pull/77>`__
+    - Bump pytest-cov to 4.0.0. `#70 <https://github.com/dajiaji/flask-paseto-extended/pull/70>`__
+
+Version 0.4.2
 -------------
 
 Released 2022-08-11
