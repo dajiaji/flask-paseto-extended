@@ -40,7 +40,7 @@ which is a PASETO/PASERK implementation supporting all of PASETO versions (
 
 You can install Flask-PASETO-Extended with pip:
 
-```py
+```sh
 $ pip install flask-paseto-extended
 ```
 
@@ -87,7 +87,9 @@ def login():
 
     token = issuer.issue(payload={"user": {"email": email}})
     resp = flask.redirect(flask.url_for("protected_me"))
-    resp.set_cookie("paseto", token, httponly=True)  # Note: MUST add secure=True in production
+    resp.set_cookie(
+        "paseto", token, httponly=True
+    )  # Note: MUST add secure=True in production
     return resp
 ```
 
@@ -171,6 +173,7 @@ This class can be used as follows:
 ```py
 import flask
 import flask_login
+
 # Import PasetoLoginManager instead of flask_login.LoginManager.
 from flask_paseto_extended import PasetoLoginManager
 
