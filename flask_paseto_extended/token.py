@@ -1,7 +1,8 @@
 import typing as t
 from functools import wraps
 
-from flask import _request_ctx_stack, current_app, has_request_context
+from flask import current_app, has_request_context
+from flask.globals import request_ctx
 from werkzeug.local import LocalProxy
 
 from .exceptions import ConfigError
@@ -109,7 +110,7 @@ def paseto_required():
 
 def _get_token() -> Token:
     """ """
-    if has_request_context() and not hasattr(_request_ctx_stack.top, "paseto"):
+    if has_request_context() and not hasattr(request_ctx, "paseto"):
         current_app.paseto_verifier._load_and_verify()  # type: ignore
 
-    return getattr(_request_ctx_stack.top, "paseto", None)
+    return getattr(request_ctx, "paseto", None)

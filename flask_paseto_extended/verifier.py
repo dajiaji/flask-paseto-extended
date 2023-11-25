@@ -2,7 +2,8 @@ import json
 import typing as t
 
 import flask
-from flask import _request_ctx_stack, request
+from flask import request
+from flask.globals import request_ctx
 from pyseto import Key, Paseto
 
 from .config import PASETO_VERSIONS_ACCEPTABLE
@@ -105,7 +106,7 @@ class PasetoVerifier(object):
         return self._verification_error_handler
 
     def _load_and_verify(self):
-        ctx = _request_ctx_stack.top
+        ctx = request_ctx
         token = self._token_loader(request)
         if not token:
             ctx.paseto = Token(
