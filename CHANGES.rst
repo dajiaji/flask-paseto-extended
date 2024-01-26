@@ -4,6 +4,35 @@ Changes
 Unreleased
 ----------
 
+Version 0.5.1
+-------------
+
+Released 2024-01-27
+
+- Add Python 3.12 to CI. `#149 <https://github.com/dajiaji/flask-paseto-extended/pull/149>`__
+- Usee request_ctx instead of _request_ctx_stack. `#131 <https://github.com/dajiaji/flask-paseto-extended/pull/131>`__
+- Add Python 3.12 to tox.ini. `#130 <https://github.com/dajiaji/flask-paseto-extended/pull/130>`__
+- Fix .readthedocs.yml. `#129 <https://github.com/dajiaji/flask-paseto-extended/pull/129>`__
+- Update dependencies.
+    - Bump pyseto to 1.7.8. `#149 <https://github.com/dajiaji/flask-paseto-extended/pull/149>`__
+    - Bump Werkzeug to 2.3.8. `#132 <https://github.com/dajiaji/flask-paseto-extended/pull/132>`__
+    - Bump Flask-Login to 0.6.3. `#119 <https://github.com/dajiaji/flask-paseto-extended/pull/119>`__
+    - Bump urllib3 to 2.0.7. `#114 <https://github.com/dajiaji/flask-paseto-extended/pull/114>`__
+- Update dev dependencies.
+    - Bump sphinx-autodoc-typehints to 1.25.3. `#148 <https://github.com/dajiaji/flask-paseto-extended/pull/148>`__
+    - Bump coverage to 7.4.1. `#147 <https://github.com/dajiaji/flask-paseto-extended/pull/147>`__
+    - Bump tox to 4.12.1. `#146 <https://github.com/dajiaji/flask-paseto-extended/pull/146>`__
+    - Bump jinja2 to 3.1.3. `#144 <https://github.com/dajiaji/flask-paseto-extended/pull/144>`__
+    - Bump pre-commit/flake8 to 7.0.0. `#143 <https://github.com/dajiaji/flask-paseto-extended/pull/143>`__
+    - Bump pytest to 7.4.4. `#141 <https://github.com/dajiaji/flask-paseto-extended/pull/141>`__
+    - Bump mypy to 1.8.0. `#139 <https://github.com/dajiaji/flask-paseto-extended/pull/139>`__
+    - Bump pre-commit/black to 23.12.1. `#136 <https://github.com/dajiaji/flask-paseto-extended/pull/136>`__
+    - Bump pre-commit/isort to 5.13.2. `#136 <https://github.com/dajiaji/flask-paseto-extended/pull/136>`__
+    - Bump sphinx-rtd-theme to 2.0.0. `#134 <https://github.com/dajiaji/flask-paseto-extended/pull/134>`__
+    - Bump actions to v4. `#126 <https://github.com/dajiaji/flask-paseto-extended/pull/126>`__
+    - Bump pre-commit to 3.5.0. `#113 <https://github.com/dajiaji/flask-paseto-extended/pull/113>`__
+    - Bump pre-commit/pre-commit-hooks to 4.5.0. `#110 <https://github.com/dajiaji/flask-paseto-extended/pull/110>`__
+
 Version 0.5.0
 -------------
 
