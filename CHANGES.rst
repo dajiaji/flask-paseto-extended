@@ -4,6 +4,34 @@ Changes
 Unreleased
 ----------
 
+Version 0.5.2
+-------------
+
+Released 2024-08-03
+
+- Update dependencies.
+    - Bump cryptography to 42.0.4. `#158 <https://github.com/dajiaji/flask-paseto-extended/pull/158>`__
+- Update dev dependencies.
+    - Bump codecov/codecov-action to v4. `#183 <https://github.com/dajiaji/python-cwt/pull/183>`__
+
+    - Bump setuptools to 70.0.0. `#186 <https://github.com/dajiaji/flask-paseto-extended/pull/186>`__
+    - Bump zipp to 3.19.1. `#185 <https://github.com/dajiaji/flask-paseto-extended/pull/185>`__
+    - Bump certifi to 2024.7.4. `#184 <https://github.com/dajiaji/flask-paseto-extended/pull/184>`__
+    - Bump urllib3 to 2.2.2. `#181 <https://github.com/dajiaji/flask-paseto-extended/pull/181>`__
+    - Bump tox to 4.15.1. `#180 <https://github.com/dajiaji/flask-paseto-extended/pull/180>`__
+    - Bump requests to 2.32.0. `#177 <https://github.com/dajiaji/flask-paseto-extended/pull/177>`__
+    - Bump jinja2 to 3.1.4. `#175 <https://github.com/dajiaji/flask-paseto-extended/pull/175>`__
+    - Bump idna to 3.7. `#171 <https://github.com/dajiaji/flask-paseto-extended/pull/171>`__
+    - Bump sphinx-autodoc-typehints to 2.0.1. `#170 <https://github.com/dajiaji/flask-paseto-extended/pull/170>`__
+    - Bump pre-commit/black to 24.4.2. `#169 <https://github.com/dajiaji/flask-paseto-extended/pull/169>`__
+    - Bump blacken-docs to 1.18.0. `#392 <https://github.com/dajiaji/flask-paseto-extended/pull/169>`__
+    - Bump pre-commit/flake8 to 7.1.0. `#380 <https://github.com/dajiaji/flask-paseto-extended/pull/169>`__
+    - Bump pre-commit/pre-commit-hooks to 4.6.0. `#380 <https://github.com/dajiaji/flask-paseto-extended/pull/169>`__
+    - Bump pytest-cov to 5.0.0. `#167 <https://github.com/dajiaji/flask-paseto-extended/pull/167>`__
+    - Bump coverage to 7.4.4. `#164 <https://github.com/dajiaji/flask-paseto-extended/pull/164>`__
+    - Bump pytest to 8.1.1. `#163 <https://github.com/dajiaji/flask-paseto-extended/pull/163>`__
+    - Bump mypy to 1.9.0. `#162 <https://github.com/dajiaji/flask-paseto-extended/pull/162>`__
+
 Version 0.5.1
 -------------
 
