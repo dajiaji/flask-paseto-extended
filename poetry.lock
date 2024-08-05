@@ -970,18 +970,18 @@ testing = ["covdefaults (>=2.3)", "pytest (>=7.4)", "pytest-cov (>=4.1)", "pytes
 
 [[package]]
 name = "pyseto"
-version = "1.7.8"
+version = "1.7.9"
 description = "A Python implementation of PASETO/PASERK."
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "pyseto-1.7.8-py3-none-any.whl", hash = "sha256:59dba2071d77bf1f9f17075f5b8a585cf64b64ccb286c255d1fe423bc8e5ccd7"},
-    {file = "pyseto-1.7.8.tar.gz", hash = "sha256:cd095d9587e343e56ff088c40ddb4ae1de51eadef34644aaf27b1f752492bfeb"},
+    {file = "pyseto-1.7.9-py3-none-any.whl", hash = "sha256:e2f0c77c130e7eeee99d229a5ff10eaeef052bf4af1125116ee1848cc6e1b588"},
+    {file = "pyseto-1.7.9.tar.gz", hash = "sha256:1f092232d4e61e2cce22cece511151b6b11ab5318ad8fa4e12f7fcd40b3c1b2f"},
 ]
 
 [package.dependencies]
 argon2-cffi = ">=23.1.0"
-cryptography = ">=42.0.1,<43"
+cryptography = ">=42.0.1,<44"
 iso8601 = ">=1.0.2,<3.0.0"
 pycryptodomex = ">=3.18.0"
 
