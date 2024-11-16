@@ -4,6 +4,32 @@ Changes
 Unreleased
 ----------
 
+Version 0.6.0
+-------------
+
+Released 2024-11-16
+
+- Add support for Python 3.13. `#230 <https://github.com/dajiaji/flask-paseto-extended/pull/230>`__
+- Drop support for Python 3.8. `#221 <https://github.com/dajiaji/flask-paseto-extended/pull/221>`__
+- Fix link on README. `#197 <https://github.com/dajiaji/flask-paseto-extended/pull/197>`__
+- Rename CI/CD files. `#195 <https://github.com/dajiaji/flask-paseto-extended/pull/195>`__
+- Fix error on populating codecov token. `#194 <https://github.com/dajiaji/flask-paseto-extended/pull/194>`__
+- Update dependencies.
+    - Bump Flask/Werkzeug to v3. `#229 <https://github.com/dajiaji/flask-paseto-extended/pull/229>`__
+    - Bump cryptography to 43.0.1. `#201 <https://github.com/dajiaji/flask-paseto-extended/pull/201>`__
+- Update dev dependencies.
+    - Bump coverage to 7.6.7. `#227 <https://github.com/dajiaji/flask-paseto-extended/pull/227>`__
+    - Bump pre-commit to 4.0.1. `#226 <https://github.com/dajiaji/flask-paseto-extended/pull/226>`__
+    - Bump pytest-cov to 6.0.0. `#225 <https://github.com/dajiaji/flask-paseto-extended/pull/225>`__
+    - Bump sphinx-rtd-theme to 3.0.2. `#223 <https://github.com/dajiaji/flask-paseto-extended/pull/223>`__
+    - Bump blacken-docs to 1.19.1. `#219 <https://github.com/dajiaji/flask-paseto-extended/pull/219>`__
+    - Bump mypy to 1.13.0. `#217 <https://github.com/dajiaji/flask-paseto-extended/pull/217>`__
+    - Bump tox to 4.23.2. `#216 <https://github.com/dajiaji/flask-paseto-extended/pull/216>`__
+    - Bump pre-commit/black to 24.10.0. `#210 <https://github.com/dajiaji/flask-paseto-extended/pull/210>`__
+    - Bump pre-commit/pre-commit-hooks to 5.0.0. `#210 <https://github.com/dajiaji/flask-paseto-extended/pull/210>`__
+    - Bump pytest to 8.3.3. `#203 <https://github.com/dajiaji/flask-paseto-extended/pull/203>`__
+    - Bump pre-commit/flake8 to 7.1.1. `#193 <https://github.com/dajiaji/flask-paseto-extended/pull/193>`__
+
 Version 0.5.2
 -------------
 
@@ -13,7 +39,6 @@ Released 2024-08-03
     - Bump cryptography to 42.0.4. `#158 <https://github.com/dajiaji/flask-paseto-extended/pull/158>`__
 - Update dev dependencies.
     - Bump codecov/codecov-action to v4. `#183 <https://github.com/dajiaji/python-cwt/pull/183>`__
-
     - Bump setuptools to 70.0.0. `#186 <https://github.com/dajiaji/flask-paseto-extended/pull/186>`__
     - Bump zipp to 3.19.1. `#185 <https://github.com/dajiaji/flask-paseto-extended/pull/185>`__
     - Bump certifi to 2024.7.4. `#184 <https://github.com/dajiaji/flask-paseto-extended/pull/184>`__
