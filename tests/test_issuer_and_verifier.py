@@ -60,7 +60,7 @@ def app():
         if flask.request.form["password"] != users[email]["password"]:
             return "Bad login"
 
-        token = issuer.issue(payload={"user": {"email": email}})
+        token = issuer.issue(payload={"user": {"email": email}}).decode("utf-8")
         resp = flask.redirect(flask.url_for("protected"))
         resp.set_cookie("paseto", token, httponly=True)
         return resp
