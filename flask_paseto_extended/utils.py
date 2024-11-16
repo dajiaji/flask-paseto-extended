@@ -9,7 +9,7 @@ def encode_cookie(payload, key=None):
 
     k = current_app.secret_key if not key else key
     enc_key = Key.new(current_app.login_manager.paseto_version, "local", k)
-    return pyseto.encode(enc_key, payload)
+    return pyseto.encode(enc_key, payload).decode("utf-8")
 
 
 def decode_cookie(cookie, key=None):
