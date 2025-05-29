@@ -45,4 +45,4 @@ pytest-cov = "^6.1.1"
 coverage = {extras = ["toml"], version = "^7.8"}
 tox = "^4.26.0"
 pre-commit = "^4.2.0"
-mypy = "^1.15"
+mypy = "^1.16"
