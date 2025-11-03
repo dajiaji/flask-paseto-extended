@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
     - uses: actions/checkout@v5
     - name: Install uv
@@ -24,8 +24,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install the project dependencies
       run: uv sync --locked --all-extras --dev
+    - name: Run checks
+      run: uv run pre-commit run --all-files
+    - name: Run docs build
+      run: uv run sphinx-build -n -T -W -b html docs docs/_build/html
     - name: Run tests
-      run: uv run --python ${{ matrix.python-version }} pytest -ra --cov=flask_paseto_extended --cov-report=term --cov-report=xml tests
+      run: uv run pytest -ra --cov=flask_paseto_extended --cov-report=term --cov-report=xml tests
     - name: Upload coverage to Codecov
       if: contains(env.USING_COVERAGE, matrix.python-version) && matrix.platform == 'ubuntu-latest'
       uses: codecov/codecov-action@v4
