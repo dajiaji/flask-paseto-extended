@@ -1,52 +1,50 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.7,<1"]
+build-backend = "uv_build"
 
-[tool.poetry]
+[project]
 name = "flask-paseto-extended"
 version = "0.6.0"
 description = "PASETO (Platform-Agnostic Security Tokens) for Flask applications."
-authors = ["Ajitomi Daisuke <dajiaji@gmail.com>"]
-license = "MIT"
 readme = "README.md"
-repository = "https://github.com/dajiaji/flask-paseto-extended"
+requires-python = ">=3.9,<4.0"
+dependencies = [
+    "Werkzeug>=3,<4",
+    "Flask>3,<4",
+    "Flask-Login>=0.6.3,<0.7",
+    "pyseto>=1.7.8,<2",
+]
+authors = [{ name = "Ajitomi Daisuke", email = "dajiaji@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
 
-include = [
-  "CHANGES.rst",
-  "docs",
-  "poetry.lock",
-  "tests",
-  "tox.ini",
+[project.urls]
+Repository = "https://github.com/dajiaji/flask-paseto-extended"
+
+[project.optional-dependencies]
+test = [
+    "pytest~=8.3",
+    "pytest-cov>=6,<8",
+    "tox>=4.23.2,<5",
+    "pre-commit>=4.0.1,<5",
+]
+docs = [
+    "sphinx>=7.1,<8.0.0",
+    "sphinx-rtd-theme>=3.0.2,<4.0.0",
+    "sphinx-autodoc-typehints>=2.3.0,<3.0.0",
+    "docutils>=0.21.2,<1.0.0",
 ]
 
-exclude = [
-  "docs/_build",
+[tool.uv.build-backend]
+module-name = "flask_paseto_extended"
+module-root = ""
+source-include = [
+    "tests/**",
+    "docs/**",
 ]
-
-[tool.poetry.dependencies]
-python = ">=3.9,<4.0"
-Werkzeug = ">=3,<4"
-Flask = ">3,<4"
-Flask-Login = "^0.6.3"
-pyseto = "^1.7.8"
-
-[tool.poetry.group.dev]
-optional = true
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3"
-pytest-cov = ">=6,<8"
-tox = "^4.23.2"
-pre-commit = "^4.0.1"
-
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-sphinx = ">=7.1,<8.0.0"
-sphinx-rtd-theme = ">=3.0.2,<4.0.0"
-sphinx-autodoc-typehints = ">=2.3.0,<3.0.0"
-docutils = ">=0.21.2,<1.0.0"
+source-exclude = [
+    "docs/_build/**",
+]
 
 [tool.mypy]
 ignore_missing_imports = true
