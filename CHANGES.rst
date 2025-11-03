@@ -4,6 +4,20 @@ Changes
 Unreleased
 ----------
 
+Version 0.6.1
+-------------
+
+Released 2025-11-03
+
+- Add support for Python 3.14. `#293 <https://github.com/dajiaji/flask-paseto-extended/pull/293>`__
+- Migrate from poetry to uv. `#292 <https://github.com/dajiaji/flask-paseto-extended/pull/292>`__
+- Update dependencies.
+    - Bump flask to 3.1.0. `#281 <https://github.com/dajiaji/flask-paseto-extended/pull/281>`__
+    - etc.
+- Update dev dependencies.
+    - Bump pre-commit/isort to 7.0.0. `#291 <https://github.com/dajiaji/flask-paseto-extended/pull/291>`__
+    - etc.
+
 Version 0.6.0
 -------------
 
