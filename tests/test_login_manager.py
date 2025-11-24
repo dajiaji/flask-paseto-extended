@@ -113,7 +113,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -131,7 +131,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -149,7 +149,7 @@ class TestPasetoLoginManager:
         with app_with_duration.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -167,7 +167,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 500
@@ -180,14 +180,14 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 # follow_redirects=True,
             )
             assert res.status_code == 302
             cookie = res.headers.getlist("Set-Cookie")[0]
             remember_token = parse_cookie(cookie)["remember_token"]
 
-        class client(object):
+        class client:
             def __init__(self, app):
                 self.app = app
 
@@ -222,7 +222,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -242,7 +242,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -311,7 +311,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 500
@@ -324,7 +324,7 @@ class TestPasetoLoginManager:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 500

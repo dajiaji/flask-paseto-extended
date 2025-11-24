@@ -13,7 +13,7 @@ PASETO_DEFAULT_USE_KID: bool = False
 PASETO_DEFAULT_SERIALIZER: t.Any = json
 
 
-class PasetoIssuer(object):
+class PasetoIssuer:
     def __init__(self, app=None, add_context_processor=True):
         if app is not None:
             self.init_app(app, add_context_processor)
@@ -22,6 +22,7 @@ class PasetoIssuer(object):
         """
         Configures an Flask application to use this PasetoIssuer.
         """
+        _ = add_context_processor  # Kept for compatibility with Flask-Login API.
         app.paseto_issuer = self
 
         # _iss

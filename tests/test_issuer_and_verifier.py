@@ -94,7 +94,7 @@ class TestPasetoIssuerAndVerifier:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
