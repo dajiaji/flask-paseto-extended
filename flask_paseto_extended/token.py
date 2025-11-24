@@ -8,7 +8,7 @@ from werkzeug.local import LocalProxy
 from .exceptions import ConfigError
 
 
-class Token(object):
+class Token:
     """
     The parsed token object which can be referred as ``current_paseto`` in the
     views decorated by ``@token_required``.

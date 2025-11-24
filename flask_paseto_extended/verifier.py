@@ -21,7 +21,7 @@ def _default_verification_error_handler() -> flask.Response:
     raise NotImplementedError("verification_error_handler must be defined.")
 
 
-class PasetoVerifier(object):
+class PasetoVerifier:
     def __init__(self, app=None, add_context_processor=True):
         if app is not None:
             self.init_app(app, add_context_processor)
@@ -34,6 +34,7 @@ class PasetoVerifier(object):
         """
         Configures an Flask application to use this PasetoVerifier.
         """
+        _ = add_context_processor  # Preserved for drop-in compatibility with LoginManager.
         app.paseto_verifier = self
 
         # _skew

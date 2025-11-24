@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from flask_paseto_extended import PasetoCookieSessionInterface
 
 
-class InvalidCookieClient(object):
+class InvalidCookieClient:
     def __init__(self, app):
         self.app = app
 
@@ -90,7 +90,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -115,7 +115,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -132,7 +132,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 500
@@ -143,7 +143,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 500
@@ -154,7 +154,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
@@ -171,7 +171,7 @@ class TestPasetoCookieSessionInterface:
         with app.test_client() as c:
             res = c.post(
                 "/login",
-                data=dict(email="foo@bar.example", password="mysecret"),
+                data={"email": "foo@bar.example", "password": "mysecret"},
                 follow_redirects=True,
             )
             assert res.status_code == 200
