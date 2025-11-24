@@ -1,3 +1,6 @@
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as pkg_version
+
 from .cookie_session import PasetoCookieSessionInterface
 from .exceptions import DecodeError, EncodeError, FlaskPasetoError
 from .issuer import PasetoIssuer
@@ -5,7 +8,10 @@ from .login_manager import PasetoLoginManager
 from .token import Token, current_paseto, paseto_required
 from .verifier import PasetoVerifier
 
-__version__ = "0.6.1"
+try:
+    __version__ = pkg_version("flask-paseto-extended")
+except PackageNotFoundError:
+    __version__ = "0.0.0"
 __title__ = "Flask PASETO Extended"
 __description__ = "PASETO (Platform-Agnostic Security Tokens) for Flask applications."
 __url__ = "https://github.com/dajiaji/flask-paseto-extended"
