@@ -91,7 +91,7 @@ class PasetoIssuer:
         self._paseto = Paseto.new(exp=self._exp, include_iat=self._use_iat)
         return
 
-    def issue(self, payload: dict, kid: str = "") -> str:
+    def issue(self, payload: dict, kid: str = "") -> bytes:
         key = self._keys[list(self._keys)[0]] if len(self._keys) == 1 else self._keys.get(kid, None)
         if not key:
             raise ValueError("A signing key is not found.")
@@ -103,7 +103,7 @@ class PasetoIssuer:
             footer["kid"] = list(self._keys.keys())[0] if len(self._keys) == 1 else kid
         try:
             if not footer:
-                return self._paseto.encode(key["key"], payload, serializer=self._serializer)
-            return self._paseto.encode(key["key"], payload, footer, serializer=self._serializer)
+                return t.cast(bytes, self._paseto.encode(key["key"], payload, serializer=self._serializer))
+            return t.cast(bytes, self._paseto.encode(key["key"], payload, footer, serializer=self._serializer))
         except Exception as err:
             raise EncodeError("Failed to encode a token.") from err

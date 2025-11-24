@@ -28,7 +28,7 @@ class PasetoVerifier:
 
         # Callbacks
         self._token_loader: t.Callable[[flask.Request], str] = _default_token_loader
-        self._verification_error_handler: t.Callable[[None], flask.Response] = _default_verification_error_handler
+        self._verification_error_handler: t.Callable[[], flask.Response] = _default_verification_error_handler
 
     def init_app(self, app, add_context_processor=True):
         """
@@ -92,17 +92,17 @@ class PasetoVerifier:
         return self.token_loader_callback
 
     @property
-    def token_loader_callback(self):
+    def token_loader_callback(self) -> t.Callable[[flask.Request], str]:
         """ """
         return self._token_loader
 
-    def verification_error_handler(self, cb: t.Callable[[None], flask.Response]) -> t.Callable[[None], flask.Response]:
+    def verification_error_handler(self, cb: t.Callable[[], flask.Response]) -> t.Callable[[], flask.Response]:
         """ """
         self._verification_error_handler = cb
         return self.verification_error_handler_callback
 
     @property
-    def verification_error_handler_callback(self):
+    def verification_error_handler_callback(self) -> t.Callable[[], flask.Response]:
         """ """
         return self._verification_error_handler
 
@@ -110,14 +110,15 @@ class PasetoVerifier:
         ctx = request_ctx
         token = self._token_loader(request)
         if not token:
-            ctx.paseto = Token(
-                False,
-                error=Exception("A PASETO token could not be loaded via 'token_loader'."),
+            setattr(  # noqa: B010
+                ctx,
+                "paseto",
+                Token(False, error=Exception("A PASETO token could not be loaded via 'token_loader'.")),
             )
             return
         try:
             t = self._paseto.decode(self._keys, token, deserializer=self._deserializer)
-            ctx.paseto = Token(True, t.version, t.purpose, t.payload, t.footer)
+            setattr(ctx, "paseto", Token(True, t.version, t.purpose, t.payload, t.footer))  # noqa: B010
         except Exception as err:
-            ctx.paseto = Token(False, error=err)
+            setattr(ctx, "paseto", Token(False, error=err))  # noqa: B010
         return

@@ -1,4 +1,4 @@
-from typing import Optional
+import typing as t
 
 import pyseto
 from flask import Flask, Request, Response
@@ -15,12 +15,13 @@ class PasetoCookieSessionInterface(SessionInterface):
         self._paseto_version = paseto_version
         self._serializer = TaggedJSONSerializer()
 
-    def open_session(self, app: Flask, request: Request) -> Optional[SessionMixin]:
+    def open_session(self, app: Flask, request: Request) -> t.Optional[SessionMixin]:
         """
         Opens a session.
         """
-        if not app.secret_key:
+        if app.secret_key is None:
             return None
+        secret_key = app.secret_key
 
         val = request.cookies.get(self.get_cookie_name(app))
         if not val:
@@ -29,8 +30,14 @@ class PasetoCookieSessionInterface(SessionInterface):
         # max_age = int(app.permanent_session_lifetime.total_seconds())
 
         try:
-            dec_key = Key.new(self._paseto_version, "local", app.secret_key)
-            serialized_session = pyseto.decode(dec_key, val).payload.decode("utf-8")  # type: ignore
+            dec_key = Key.new(self._paseto_version, "local", secret_key)
+            decoded_payload = pyseto.decode(dec_key, val).payload
+            if isinstance(decoded_payload, str):
+                serialized_session = decoded_payload
+            elif isinstance(decoded_payload, bytes):
+                serialized_session = decoded_payload.decode("utf-8")
+            else:
+                serialized_session = str(decoded_payload)
             return SecureCookieSession(self._serializer.loads(serialized_session))
         except Exception:
             return SecureCookieSession()
@@ -58,7 +65,10 @@ class PasetoCookieSessionInterface(SessionInterface):
 
         httponly = self.get_cookie_httponly(app)
         expires = self.get_expiration_time(app, session)
-        enc_key = Key.new(self._paseto_version, "local", app.secret_key)
+        secret_key = app.secret_key
+        if secret_key is None:
+            return
+        enc_key = Key.new(self._paseto_version, "local", secret_key)
         serialized_session = self._serializer.dumps(dict(session))
         val = pyseto.encode(enc_key, serialized_session).decode("ascii")
         response.set_cookie(

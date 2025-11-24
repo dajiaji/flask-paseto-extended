@@ -54,6 +54,16 @@ source-exclude = [
 ignore_missing_imports = true
 pretty = true
 warn_unused_ignores = true
+check_untyped_defs = true
+warn_return_any = true
+no_implicit_optional = true
+strict_equality = true
+python_version = "3.9"
+exclude = "^(tests|examples)/"
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+ignore_errors = true
 
 [tool.ruff]
 target-version = "py39"

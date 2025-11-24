@@ -1,4 +1,6 @@
 # flake8: noqa: E501
+import typing as t
+
 import flask
 from flask import jsonify, make_response
 
@@ -83,7 +85,8 @@ def login():
     token = issuer.issue(payload={"user": {"email": email}})
     resp = flask.redirect(flask.url_for("protected_me"))
     # NOTE: MUST add secure=True in production.
-    resp.set_cookie("paseto", token, httponly=True)
+    token_str = token.decode("utf-8") if isinstance(token, (bytes, bytearray)) else token
+    resp.set_cookie("paseto", token_str, httponly=True)
     return resp
 
 
@@ -97,4 +100,4 @@ def logout():
 @app.route("/protected/me")
 @paseto_required()
 def protected_me():
-    return jsonify(current_paseto.payload["user"])
+    return jsonify(t.cast(dict, current_paseto.payload)["user"])

@@ -60,9 +60,9 @@ def app():
         if flask.request.form["password"] != users[email]["password"]:
             return "Bad login"
 
-        token = issuer.issue(payload={"user": {"email": email}}).decode("utf-8")
+        token = issuer.issue(payload={"user": {"email": email}})
         resp = flask.redirect(flask.url_for("protected"))
-        resp.set_cookie("paseto", token, httponly=True)
+        resp.set_cookie("paseto", token.decode("utf-8"), httponly=True)
         return resp
 
     @app.route("/logout")
@@ -80,7 +80,8 @@ def app():
         assert current_paseto.header == b"v4.public."
         assert current_paseto.footer == b""
         assert current_paseto.error is None
-        return jsonify(current_paseto.payload["user"])
+        from typing import Any, cast
+        return jsonify(cast(dict[str, Any], current_paseto.payload)["user"])
 
     return app
 

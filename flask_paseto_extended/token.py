@@ -76,14 +76,14 @@ class Token:
         return self._footer
 
     @property
-    def error(self) -> t.Union[Exception, None]:
+    def error(self) -> t.Optional[Exception]:
         """
         If ``is_verified`` is ``True``, this property will be specified.
         """
         return self._error
 
 
-current_paseto: Token = LocalProxy(lambda: _get_token())  # type: ignore
+current_paseto: LocalProxy[Token] = LocalProxy(lambda: _get_token())
 
 
 def paseto_required():
@@ -95,7 +95,7 @@ def paseto_required():
             if not hasattr(current_app, "paseto_verifier"):
                 raise ConfigError("paseto_verifier is not set in the current_app.")
 
-            if not current_paseto.is_verified:
+            if not t.cast(Token, current_paseto).is_verified:
                 return current_app.paseto_verifier.verification_error_handler_callback()
 
             if not hasattr(current_app, "ensure_sync"):
@@ -111,6 +111,10 @@ def paseto_required():
 def _get_token() -> Token:
     """ """
     if has_request_context() and not hasattr(request_ctx, "paseto"):
-        current_app.paseto_verifier._load_and_verify()  # type: ignore
-
-    return getattr(request_ctx, "paseto", None)
+        verifier = getattr(current_app, "paseto_verifier", None)
+        if verifier is not None:
+            verifier._load_and_verify()
+    token = getattr(request_ctx, "paseto", None)
+    if isinstance(token, Token):
+        return token
+    return Token(False)
