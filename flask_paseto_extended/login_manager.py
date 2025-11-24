@@ -80,6 +80,5 @@ class PasetoLoginManager(LoginManager):
         if self._user_callback:
             user = self._user_callback(user_id)
         if user is not None:
-            app = current_app._get_current_object()
-            user_loaded_from_cookie.send(app, user=user)
+            user_loaded_from_cookie.send(current_app, user=user)
         return user
