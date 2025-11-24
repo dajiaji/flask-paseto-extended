@@ -4,6 +4,15 @@ Changes
 Unreleased
 ----------
 
+Version 0.6.2
+-------------
+
+Released 2025-11-24
+
+- Introduce ruff. `#301 <https://github.com/dajiaji/flask-paseto-extended/pull/301>`__
+- Update dev dependencies.
+    - Bump pre-commit/black to 25.11.0. `#300 <https://github.com/dajiaji/flask-paseto-extended/pull/300>`__
+
 Version 0.6.1
 -------------
 
