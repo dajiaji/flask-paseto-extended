@@ -4,6 +4,19 @@ Changes
 Unreleased
 ----------
 
+Version 0.6.3
+-------------
+
+Released 2025-11-29
+
+- Add support for Python 3.9. `#309 <https://github.com/dajiaji/flask-paseto-extended/pull/309>`__
+- Remove --token from uv publish for dry-run. `#308 <https://github.com/dajiaji/flask-paseto-extended/pull/308>`__
+- Integrate mypy into CI. `#303 <https://github.com/dajiaji/flask-paseto-extended/pull/303>`__
+- Update dev dependencies.
+    - Bump mypy to 1.19.0. `#307 <https://github.com/dajiaji/flask-paseto-extended/pull/307>`__
+    - Bump ruff to 0.14.7. `#306 <https://github.com/dajiaji/flask-paseto-extended/pull/306>`__
+    - Bump docutils to 0.22.3. `#305 <https://github.com/dajiaji/flask-paseto-extended/pull/305>`__
+
 Version 0.6.2
 -------------
 
