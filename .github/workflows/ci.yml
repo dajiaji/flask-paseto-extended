@@ -71,4 +71,4 @@ jobs:
     - name: Import package
       run: python -c "import flask_paseto_extended; print(flask_paseto_extended.__version__)"
     - name: Publish (dry-run)
-      run: uv publish --dry-run --token ${{ secrets.UV_PUBLISH_TOKEN }}
+      run: uv publish --dry-run
