@@ -35,22 +35,19 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/dajiaji/flask-paseto-extended"
 
-[project.optional-dependencies]
-test = [
-    "pytest~=8.3",
-    "pytest-cov>=6,<8",
-    "tox>=4.23.2,<5",
-    "pre-commit>=4.0.1,<5",
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.14.10",
 ]
 docs = [
-    "sphinx>=7.1,<8.0.0",
-    "sphinx-rtd-theme>=3.0.2,<4.0.0",
-    "sphinx-autodoc-typehints>=2.3.0,<3.0.0",
-    "docutils>=0.21.2,<1.0.0",
-]
-dev = [
-    "ruff>=0.14.6",
-    "mypy>=1.13.0",
+    "docutils>=0.21.2",
+    "sphinx>=7.4.7,<8.0.0",
+    "sphinx-autodoc-typehints>=2.3.0",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.uv.build-backend]
