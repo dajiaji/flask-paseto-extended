@@ -1,4 +1,12 @@
 repos:
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.10.0
+    hooks:
+      - id: pip-audit
+  # - repo: https://github.com/rhysd/actionlint
+  #   rev: v1.6.12
+  #   hooks:
+  #     - id: actionlint-docker
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.9
     hooks:
