@@ -1,0 +1,10 @@
+format: cyclonedx
+output: trivy-vex.cdx.json
+severity:
+  - CRITICAL
+  - HIGH
+  - MEDIUM
+scanners:
+  - vuln
+vex: true
+exit-code: 0
