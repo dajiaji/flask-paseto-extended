@@ -19,9 +19,9 @@ class Token:
         is_verified: bool,
         version: str = "",
         purpose: str = "",
-        payload: t.Union[bytes, dict] = b"",
-        footer: t.Union[bytes, dict] = b"",
-        error: t.Optional[Exception] = None,
+        payload: bytes | dict = b"",
+        footer: bytes | dict = b"",
+        error: Exception | None = None,
     ):
         self._is_verified = is_verified
         self._version = version
@@ -62,21 +62,21 @@ class Token:
         return self._header
 
     @property
-    def payload(self) -> t.Union[bytes, dict]:
+    def payload(self) -> bytes | dict:
         """
         The payload of the token which is a decoded binary string. It's not Base64 encoded data.
         """
         return self._payload
 
     @property
-    def footer(self) -> t.Union[bytes, dict]:
+    def footer(self) -> bytes | dict:
         """
         The footer of the token which is a decoded binary string. It's not Base64 encoded data.
         """
         return self._footer
 
     @property
-    def error(self) -> t.Optional[Exception]:
+    def error(self) -> Exception | None:
         """
         If ``is_verified`` is ``True``, this property will be specified.
         """
