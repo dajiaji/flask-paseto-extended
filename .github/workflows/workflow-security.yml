@@ -1,0 +1,33 @@
+# .github/workflows/workflow-security.yml
+name: Workflow Security Check
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+  push:
+    branches: [main]
+
+jobs:
+  zizmor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          persist-credentials: false
+      
+      - name: Install zizmor
+        run: pip install zizmor
+      
+      - name: Run zizmor
+        run: |
+          zizmor --format sarif .github/workflows/ > zizmor-results.sarif || true
+      
+      - name: Upload zizmor results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: zizmor-results.sarif
