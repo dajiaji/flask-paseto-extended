@@ -1,4 +1,3 @@
-import typing as t
 
 import pyseto
 from flask import Flask, Request, Response
@@ -15,7 +14,7 @@ class PasetoCookieSessionInterface(SessionInterface):
         self._paseto_version = paseto_version
         self._serializer = TaggedJSONSerializer()
 
-    def open_session(self, app: Flask, request: Request) -> t.Optional[SessionMixin]:
+    def open_session(self, app: Flask, request: Request) -> SessionMixin | None:
         """
         Opens a session.
         """
