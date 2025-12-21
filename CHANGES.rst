@@ -4,6 +4,46 @@ Changes
 Unreleased
 ----------
 
+Version 0.6.4
+-------------
+
+Released 2025-12-21
+
+- Fix cache-poisoning error. `#345 <https://github.com/dajiaji/flask-paseto-extended/pull/345>`__
+- Fix error on dependabot.yml. `#340 <https://github.com/dajiaji/flask-paseto-extended/pull/340>`__
+- Introduce gh-action-pypi-publish. `#339 <https://github.com/dajiaji/flask-paseto-extended/pull/339>`__
+- Refine dependabot to introduce cooldown. `#338 <https://github.com/dajiaji/flask-paseto-extended/pull/338>`__
+- Refine SBOM config. `#337 <https://github.com/dajiaji/flask-paseto-extended/pull/337>`__
+- Disable VEX feature. `#336 <https://github.com/dajiaji/flask-paseto-extended/pull/336>`__
+- Bump checkout to v6. `#335 <https://github.com/dajiaji/flask-paseto-extended/pull/335>`__
+- Fix template injection. `#334 <https://github.com/dajiaji/flask-paseto-extended/pull/334>`__
+- Activate actionlint. `#333 <https://github.com/dajiaji/flask-paseto-extended/pull/333>`__
+- Update workflow actions. `#332 <https://github.com/dajiaji/flask-paseto-extended/pull/332>`__
+- Add VEX and SBOM support. `#331 <https://github.com/dajiaji/flask-paseto-extended/pull/331>`__
+- Fix unpinned action. `#330 <https://github.com/dajiaji/flask-paseto-extended/pull/330>`__
+- Introduce trivy. `#329 <https://github.com/dajiaji/flask-paseto-extended/pull/329>`__
+- Refine pip-audit args. `#328 <https://github.com/dajiaji/flask-paseto-extended/pull/328>`__
+- Introduce task. `#327 <https://github.com/dajiaji/flask-paseto-extended/pull/327>`__
+- Fix artipacked. `#326 <https://github.com/dajiaji/flask-paseto-extended/pull/326>`__
+- Fix excessive permissions. `#325 <https://github.com/dajiaji/flask-paseto-extended/pull/325>`__
+- Drop support for Python 3.9. `#324 <https://github.com/dajiaji/flask-paseto-extended/pull/324>`__
+- Use persist credentials. `#323 <https://github.com/dajiaji/flask-paseto-extended/pull/323>`__
+- Apply pinact. `#322 <https://github.com/dajiaji/flask-paseto-extended/pull/322>`__
+- Introduce pip-audit. `#321 <https://github.com/dajiaji/flask-paseto-extended/pull/321>`__
+- Use dependency groups. `#320 <https://github.com/dajiaji/flask-paseto-extended/pull/320>`__
+- Introduce workflow security. `#319 <https://github.com/dajiaji/flask-paseto-extended/pull/319>`__
+- Update pre-commit CI config. `#311 <https://github.com/dajiaji/flask-paseto-extended/pull/311>`__, `#314 <https://github.com/dajiaji/flask-paseto-extended/pull/314>`__, `#316 <https://github.com/dajiaji/flask-paseto-extended/pull/316>`__
+- Update dependencies.
+    - Bump Werkzeug to 3.1.4. `#312 <https://github.com/dajiaji/flask-paseto-extended/pull/312>`__
+- Update dev dependencies.
+    - Bump sphinx to 8.1.3. `#341 <https://github.com/dajiaji/flask-paseto-extended/pull/341>`__
+    - Bump mypy to 1.19.1. `#317 <https://github.com/dajiaji/flask-paseto-extended/pull/317>`__
+    - Bump ruff to 0.14.10. `#313 <https://github.com/dajiaji/flask-paseto-extended/pull/313>`__, `#318 <https://github.com/dajiaji/flask-paseto-extended/pull/318>`__
+- Update CI dependencies.
+    - Bump codecov/codecov-action to 5.5.2. `#344 <https://github.com/dajiaji/flask-paseto-extended/pull/344>`__
+    - Bump actions/upload-artifact to 6.0.0. `#343 <https://github.com/dajiaji/flask-paseto-extended/pull/343>`__
+    - Bump astral-sh/setup-uv to 7.1.6. `#342 <https://github.com/dajiaji/flask-paseto-extended/pull/342>`__
+
 Version 0.6.3
 -------------
 
