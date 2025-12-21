@@ -1,7 +1,0 @@
-format: cyclonedx
-output: trivy-sbom.cdx.json
-scanners:
-  - vuln
-  - license
-list-all-pkgs: true
-exit-code: 0
