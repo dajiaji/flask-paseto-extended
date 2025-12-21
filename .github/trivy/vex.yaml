@@ -6,5 +6,9 @@ severity:
   - MEDIUM
 scanners:
   - vuln
-vex: true
+vex: []
 exit-code: 0
+vuln-type:
+  - os
+  - library
+dependency-tree: true
