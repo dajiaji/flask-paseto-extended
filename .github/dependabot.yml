@@ -1,7 +1,53 @@
 version: 2
 
 updates:
+  # Python dependencies (uv)
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    # Wait 2 days after release for supply chain security
+    cooldown:
+      default-days: 2
+    # Security updates are handled separately
+    ignore:
+      # Ignore pre-release versions for supply chain security
+      - dependency-type: "development"
+        update-types: ["version-update:semver-major"]
+    versioning-strategy: increase
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "ci/cd"
+      - "github-actions"
+    # Wait 2 days after release for supply chain security
+    cooldown:
+      default-days: 2
+    # Use increase strategy to be conservative with updates
+    versioning-strategy: increase
+    # Group minor and patch updates together for actions
+    groups:
+      github-actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
