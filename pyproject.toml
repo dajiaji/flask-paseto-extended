@@ -45,7 +45,7 @@ dev = [
 ]
 docs = [
     "docutils>=0.21.2",
-    "sphinx>=7.4.7,<8.0.0",
+    "sphinx>=7.4.7,<9.0.0",
     "sphinx-autodoc-typehints>=2.3.0",
     "sphinx-rtd-theme>=3.0.2",
 ]
