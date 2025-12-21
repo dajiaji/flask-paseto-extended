@@ -17,12 +17,6 @@ updates:
     # Wait 2 days after release for supply chain security
     cooldown:
       default-days: 2
-    # Security updates are handled separately
-    ignore:
-      # Ignore pre-release versions for supply chain security
-      - dependency-type: "development"
-        update-types: ["version-update:semver-major"]
-    versioning-strategy: increase
 
   # GitHub Actions dependencies
   - package-ecosystem: "github-actions"
@@ -41,8 +35,6 @@ updates:
     # Wait 2 days after release for supply chain security
     cooldown:
       default-days: 2
-    # Use increase strategy to be conservative with updates
-    versioning-strategy: increase
     # Group minor and patch updates together for actions
     groups:
       github-actions-minor-patch:
