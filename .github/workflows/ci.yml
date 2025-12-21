@@ -34,6 +34,8 @@ jobs:
     - name: Run mypy type check
       run: uv run mypy .
     - name: Run checks
+      env:
+        SKIP: actionlint-system
       run: uv run pre-commit run --all-files
     - name: Run docs build
       run: uv run sphinx-build -n -T -W -b html docs docs/_build/html
@@ -80,6 +82,22 @@ jobs:
       run: uv run python -c "import flask_paseto_extended; print(flask_paseto_extended.__version__)"
     - name: Publish (dry-run)
       run: uv publish --dry-run
+
+  actionlint:
+    name: Lint GitHub Actions workflow files
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+      - name: Check workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash
 
   trivy:
     name: Trivy Security Scan
