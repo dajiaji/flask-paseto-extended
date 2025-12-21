@@ -10,9 +10,11 @@ jobs:
   deploy:
     name: Publish package
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/flask-paseto-extended
     permissions:
       id-token: write
-      contents: read
     steps:
     - name: Checkout repository
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -26,5 +28,5 @@ jobs:
       run: uv build
     - name: Show result
       run: ls -l dist
-    - name: Publish
-      run: uv publish --token ${{ secrets.UV_PUBLISH_TOKEN }}
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
