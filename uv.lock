@@ -536,7 +536,7 @@ name = "exceptiongroup"
 version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/50/79/66800aadf48771f6b62f7eb014e352e5d06856655206165d775e675a02c9/exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219", size = 30371, upload-time = "2025-11-21T23:01:54.787Z" }
 wheels = [
@@ -1209,7 +1209,7 @@ wheels = [
 
 [[package]]
 name = "pyseto"
-version = "1.9.0"
+version = "1.9.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argon2-cffi" },
@@ -1217,9 +1217,9 @@ dependencies = [
     { name = "iso8601" },
     { name = "pycryptodomex" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5a/f7/aba33ae1a59d2f5c668cec6a05c432974bfef4ada1da7ca83c553d9e468c/pyseto-1.9.0.tar.gz", hash = "sha256:9c981c770b9a0f48023b60f65a1b06b88db1ca5c852d9b6f3e984c0e71e57823", size = 73188, upload-time = "2025-12-24T14:33:08.266Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/87/24/778932e72993b2feb9fcf8a809a4ef31ba68b62b1e3b8e8cc653b404882f/pyseto-1.9.1.tar.gz", hash = "sha256:678c41a00984736853038d78d02c70e65d125f72d5f4505ea7332f24ffa13134", size = 73495, upload-time = "2025-12-29T13:47:43.739Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0f/f2/dcf4a06b17a2bc8ad1f5be1db3c2637e02cfb9c8a7ab382afd3c0d11a7da/pyseto-1.9.0-py3-none-any.whl", hash = "sha256:450f594ccf2e1669a067a33e7bc0fea54b168e6dd69ecac5ee67d2ae991d6c9f", size = 30370, upload-time = "2025-12-24T14:33:06.555Z" },
+    { url = "https://files.pythonhosted.org/packages/93/44/c8008d4c9ed7f0f749d6fdad4f7b0a2aaf4715311853b59527de0ee3fd1f/pyseto-1.9.1-py3-none-any.whl", hash = "sha256:7f62c63412707fbfe22659b97aacfc3d4a692f99e04b356da744e04ba3464bd1", size = 30652, upload-time = "2025-12-29T13:47:42.622Z" },
 ]
 
 [[package]]
