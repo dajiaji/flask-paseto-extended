@@ -1,0 +1,26 @@
+ERROR    test_login_manager:app.py:875 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 941, in finalize_request
+    response = self.process_response(response)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1319, in process_response
+    response = self.ensure_sync(func)(response)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask_login/login_manager.py", line 459, in _update_remember_cookie
+    self._set_cookie(response)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/flask_paseto_extended/login_manager.py", line 50, in _set_cookie
+    data = encode_cookie(str(session["_user_id"]), self._remember_cookie_key)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/flask_paseto_extended/utils.py", line 16, in encode_cookie
+    enc_key = Key.new(version, "local", k)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/pyseto/key.py", line 55, in new
+    return cls._create_private_key(version, bkey)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/pyseto/key.py", line 241, in _create_private_key
+    return V2Local(key)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/pyseto/versions/v2.py", line 29, in __init__
+    raise ValueError("key must be 32 bytes long.")
+ValueError: key must be 32 bytes long.

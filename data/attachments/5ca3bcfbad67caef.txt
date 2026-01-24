@@ -1,0 +1,14 @@
+ERROR    test_verifier:app.py:875 Exception on /protected [GET]
+Traceback (most recent call last):
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/flask_paseto_extended/token.py", line 96, in decorated_view
+    raise ConfigError("paseto_verifier is not set in the current_app.")
+flask_paseto_extended.exceptions.ConfigError: paseto_verifier is not set in the current_app.

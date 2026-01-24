@@ -1,0 +1,22 @@
+ERROR    test_cookie_session:app.py:875 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/tests/test_cookie_session.py", line 66, in login
+    flask_login.login_user(user)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask_login/utils.py", line 184, in login_user
+    session["_user_id"] = user_id
+    ~~~~~~~^^^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/sessions.py", line 104, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.

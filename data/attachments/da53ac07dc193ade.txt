@@ -1,0 +1,25 @@
+ERROR    test_login_manager:app.py:875 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/flask_paseto_extended/login_manager.py", line 56, in _set_cookie
+    expires = datetime.utcnow() + duration
+              ~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'datetime.datetime' and 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 941, in finalize_request
+    response = self.process_response(response)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask/app.py", line 1319, in process_response
+    response = self.ensure_sync(func)(response)
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/.venv/lib/python3.13/site-packages/flask_login/login_manager.py", line 459, in _update_remember_cookie
+    self._set_cookie(response)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/runner/work/flask-paseto-extended/flask-paseto-extended/flask_paseto_extended/login_manager.py", line 58, in _set_cookie
+    raise TypeError("REMEMBER_COOKIE_DURATION must be datetime.timedelta") from err
+TypeError: REMEMBER_COOKIE_DURATION must be datetime.timedelta
