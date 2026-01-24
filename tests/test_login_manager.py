@@ -1,6 +1,7 @@
 from datetime import timedelta
 from secrets import token_bytes
 
+import allure
 import flask
 import flask_login
 import pytest
@@ -99,11 +100,16 @@ def app_with_duration():
     return app
 
 
+@allure.feature("Login Management")
+@allure.story("PasetoLoginManager")
+@pytest.mark.login_manager
 class TestPasetoLoginManager:
     """
     Tests for PasetoLoginManager.
     """
 
+    @allure.title("Test basic login manager functionality")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_login_manager(self, app):
         app.secret_key = "super secret string"
         login_manager = new_login_manager(app)
@@ -123,6 +129,8 @@ class TestPasetoLoginManager:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test login manager with duration config")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_with_duration1(self, app):
         app.config["REMEMBER_COOKIE_DURATION"] = 1
         app.secret_key = "super secret string"
@@ -141,6 +149,8 @@ class TestPasetoLoginManager:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test login manager with duration parameter")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_with_duration2(self, app_with_duration):
         # app.config["REMEMBER_COOKIE_DURATION"] = 1
         app_with_duration.secret_key = "super secret string"
@@ -159,6 +169,8 @@ class TestPasetoLoginManager:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test login manager with invalid duration")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_with_invalid_duration(self, app):
         app.config["REMEMBER_COOKIE_DURATION"] = "1"
         app.secret_key = "super secret string"
@@ -172,6 +184,8 @@ class TestPasetoLoginManager:
             )
             assert res.status_code == 500
 
+    @allure.title("Test login manager with token refresh")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_login_manager_with_refresh(self, app):
         app.config["REMEMBER_COOKIE_DURATION"] = 1
         app.secret_key = "super secret string"
@@ -201,6 +215,8 @@ class TestPasetoLoginManager:
             assert res.status_code == 200
             assert res.data == b"Logged in as: foo@bar.example"
 
+    @allure.title("Test login manager with different PASETO versions")
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.parametrize(
         "version, key",
         [
@@ -232,6 +248,8 @@ class TestPasetoLoginManager:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test login manager with remember cookie key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_with_remember_cookie_key(self, app):
         app.secret_key = "super secret string"
         app.config["REMEMBER_COOKIE_PASETO_KEY"] = "my super secret"
@@ -252,6 +270,8 @@ class TestPasetoLoginManager:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test login manager with unsupported PASETO version")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "version, msg",
         [
@@ -269,6 +289,8 @@ class TestPasetoLoginManager:
             pytest.fail("PasetoLoginManager() should fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test login manager with invalid version type")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "version, msg",
         [
@@ -286,6 +308,8 @@ class TestPasetoLoginManager:
             pytest.fail("PasetoLoginManager() should fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test login manager with invalid key type")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "key, msg",
         [
@@ -304,6 +328,8 @@ class TestPasetoLoginManager:
             pytest.fail("PasetoLoginManager() should fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test login manager without secret key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_without_secret_key(self, app):
         # app.secret_key = "super secret string"
         new_login_manager(app)
@@ -316,6 +342,8 @@ class TestPasetoLoginManager:
             )
             assert res.status_code == 500
 
+    @allure.title("Test login manager with invalid key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_login_manager_with_invalid_key(self, app):
         app.secret_key = "not 32bytes secret for v2"
         app.config["REMEMBER_COOKIE_PASETO_VERSION"] = 2
