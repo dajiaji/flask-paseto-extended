@@ -1,6 +1,7 @@
 # flake8: noqa: E501
 import json
 
+import allure
 import flask
 import pyseto
 import pytest
@@ -9,11 +10,16 @@ from pyseto import Key
 from flask_paseto_extended import EncodeError, PasetoIssuer
 
 
+@allure.feature("Token Issuing")
+@allure.story("PasetoIssuer")
+@pytest.mark.issuer
 class TestPasetoIssuer:
     """
     Tests for PasetoIssuer.
     """
 
+    @allure.title("Test basic issuer functionality")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_issuer(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -41,6 +47,8 @@ class TestPasetoIssuer:
         decoded = pyseto.decode(key, token, deserializer=json)
         assert "kid" in decoded.footer
 
+    @allure.title("Test issuer with mandatory configs only")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_issuer_with_mandatory_configs(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -54,6 +62,8 @@ class TestPasetoIssuer:
         assert hasattr(issuer, "issue")
         assert callable(issuer.issue)
 
+    @allure.title("Test issuer init_app method")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_issuer_init_app(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -68,6 +78,8 @@ class TestPasetoIssuer:
         assert hasattr(issuer, "issue")
         assert callable(issuer.issue)
 
+    @allure.title("Test issuer with multiple keys")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_issuer_with_multiple_keys(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -85,6 +97,8 @@ class TestPasetoIssuer:
         assert hasattr(issuer, "issue")
         assert callable(issuer.issue)
 
+    @allure.title("Test issuer init_app with PASERK key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_issuer_init_app_with_paserk(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -98,6 +112,8 @@ class TestPasetoIssuer:
         issuer.init_app(app)
         assert hasattr(issuer, "issue")
 
+    @allure.title("Test issuer init_app with multiple PASERK keys")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_issuer_init_app_with_multiple_paserks(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -113,6 +129,8 @@ class TestPasetoIssuer:
         issuer.init_app(app)
         assert hasattr(issuer, "issue")
 
+    @allure.title("Test issuer with invalid ISS config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "iss, msg",
         [
@@ -139,6 +157,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid USE_ISS config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "use_iss, msg",
         [
@@ -169,6 +189,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid USE_IAT config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "use_iat, msg",
         [
@@ -199,6 +221,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid EXP config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "exp, msg",
         [
@@ -225,6 +249,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid USE_KID config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "use_kid, msg",
         [
@@ -255,6 +281,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid SERIALIZER config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "serializer, msg",
         [
@@ -279,6 +307,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer with invalid PRIVATE_KEYS config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "keys, msg",
         [
@@ -322,6 +352,8 @@ class TestPasetoIssuer:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test issuer issue with bad kid")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_issuer_issue_with_bad_kid(self):
         app = flask.Flask(__name__)
         app.config["PASETO_ISS"] = "https://issuer.example"
@@ -344,6 +376,8 @@ class TestPasetoIssuer:
             pytest.fail("issue() must fail.")
         assert "A signing key is not found." in str(err.value)
 
+    @allure.title("Test issuer issue with bad serializer")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_issuer_issue_with_bad_serializer(self):
         class _BadSerializer:
             def dumps(*args, **kwargs):

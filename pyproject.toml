@@ -36,6 +36,7 @@ Repository = "https://github.com/dajiaji/flask-paseto-extended"
 
 [dependency-groups]
 dev = [
+    "allure-pytest>=2.13.5",
     "mypy>=1.19.1",
     "pip-audit>=2.9.0",
     "pre-commit>=4.3.0",

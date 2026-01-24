@@ -1,6 +1,7 @@
 # flake8: noqa: E501
 from secrets import token_bytes
 
+import allure
 import flask
 import flask_login
 import pytest
@@ -79,11 +80,16 @@ def app():
     return app
 
 
+@allure.feature("Session Management")
+@allure.story("PasetoCookieSessionInterface")
+@pytest.mark.cookie_session
 class TestPasetoCookieSessionInterface:
     """
     Tests for sample code.
     """
 
+    @allure.title("Test basic cookie session functionality")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_cookie_session(self, app):
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -100,6 +106,8 @@ class TestPasetoCookieSessionInterface:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test cookie session with different PASETO versions")
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.parametrize(
         "version, key",
         [
@@ -126,6 +134,8 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
             assert res.status_code == 200
 
+    @allure.title("Test cookie session without secret key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_cookie_session_without_secret_key(self, app):
         # app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -137,6 +147,8 @@ class TestPasetoCookieSessionInterface:
             )
             assert res.status_code == 500
 
+    @allure.title("Test cookie session encode with invalid key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_cookie_session_encode_with_invalid_key(self, app):
         app.secret_key = "not 32bytes secret for v2"
         app.session_interface = PasetoCookieSessionInterface(paseto_version=2)
@@ -148,6 +160,8 @@ class TestPasetoCookieSessionInterface:
             )
             assert res.status_code == 500
 
+    @allure.title("Test cookie session decode with another key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_cookie_session_decode_with_another_key(self, app):
         app.secret_key = "super secret string"
         app.session_interface = PasetoCookieSessionInterface()
@@ -165,6 +179,8 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
             assert res.data == b"Unauthorized"
 
+    @allure.title("Test cookie session decode with invalid PASETO")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_cookie_session_decode_with_invalid_paseto(self, app):
         app.secret_key = "my super secret"
         app.session_interface = PasetoCookieSessionInterface()
@@ -182,6 +198,8 @@ class TestPasetoCookieSessionInterface:
             assert res.status_code == 200
             assert res.data == b"Unauthorized"
 
+    @allure.title("Test cookie session with invalid PASETO version")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "version, msg",
         [

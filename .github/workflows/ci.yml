@@ -40,7 +40,7 @@ jobs:
     - name: Run docs build
       run: uv run sphinx-build -n -T -W -b html docs docs/_build/html
     - name: Run tests
-      run: uv run pytest -ra --cov=flask_paseto_extended --cov-report=term --cov-report=xml tests
+      run: uv run pytest -ra --cov=flask_paseto_extended --cov-report=term --cov-report=xml --alluredir=allure-results tests
     - name: Upload coverage to Codecov
       if: contains(env.USING_COVERAGE, matrix.python-version) && matrix.platform == 'ubuntu-latest'
       uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
@@ -48,6 +48,13 @@ jobs:
         fail_ci_if_error: true
         token: ${{ secrets.CODECOV_TOKEN }}
         verbose: true
+    - name: Upload Allure results
+      if: contains(env.USING_COVERAGE, matrix.python-version) && matrix.platform == 'ubuntu-latest'
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      with:
+        name: allure-results
+        path: allure-results
+        retention-days: 7
 
   package:
     name: Build package
@@ -151,3 +158,52 @@ jobs:
         path: |
           trivy-sbom.cdx.json
           trivy-sbom.spdx.json
+
+  allure-report:
+    name: Generate Allure Report
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      with:
+        persist-credentials: false
+    - name: Download Allure results
+      uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+      with:
+        name: allure-results
+        path: allure-results
+    - name: Get Allure history
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+        persist-credentials: false
+    - name: Setup Java
+      uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    - name: Install Allure
+      run: |
+        curl -o allure-2.32.0.tgz -OLs https://github.com/allure-framework/allure2/releases/download/2.32.0/allure-2.32.0.tgz
+        tar -zxvf allure-2.32.0.tgz
+        sudo mv allure-2.32.0 /opt/allure
+        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+    - name: Generate Allure report
+      run: |
+        mkdir -p allure-results/history
+        if [ -d "gh-pages/history" ]; then
+          cp -r gh-pages/history/* allure-results/history/ || true
+        fi
+        allure generate allure-results --clean -o allure-report
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        publish_branch: gh-pages

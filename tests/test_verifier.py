@@ -1,4 +1,5 @@
 # flake8: noqa: E501
+import allure
 import flask
 import pytest
 from flask import jsonify, make_response
@@ -124,11 +125,16 @@ def app_without_verifier():
     return app
 
 
+@allure.feature("Token Verification")
+@allure.story("PasetoVerifier")
+@pytest.mark.verifier
 class TestPasetoVerifier:
     """
     Tests for PasetoVerifier.
     """
 
+    @allure.title("Test basic verifier functionality")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_verifier(self):
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
@@ -159,6 +165,8 @@ class TestPasetoVerifier:
             pytest.fail("verification_error_handler_callback() must fail.")
         assert "verification_error_handler must be defined." in str(err.value)
 
+    @allure.title("Test verifier init_app method")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_verifier_init_app(self):
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
@@ -190,6 +198,8 @@ class TestPasetoVerifier:
             pytest.fail("verification_error_handler_callback() must fail.")
         assert "verification_error_handler must be defined." in str(err.value)
 
+    @allure.title("Test verifier init_app with PASERK key")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_verifier_init_app_with_paserk(self):
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
@@ -203,6 +213,8 @@ class TestPasetoVerifier:
         verifier.init_app(app)
         assert hasattr(verifier, "token_loader")
 
+    @allure.title("Test verifier init_app with multiple PASERK keys")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_verifier_init_app_with_multiple_paserks(self):
         app = flask.Flask(__name__)
         app.config["PASETO_SKEW"] = 60
@@ -218,6 +230,8 @@ class TestPasetoVerifier:
         verifier.init_app(app)
         assert hasattr(verifier, "token_loader")
 
+    @allure.title("Test verifier with wrong public key")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_verifier_paseto_verification_failed(self, app_with_wrong_public_key):
         with app_with_wrong_public_key.test_client() as c:
             res = c.post(
@@ -230,6 +244,8 @@ class TestPasetoVerifier:
             assert res.status_code == 200
             assert res.data == b"Unauthorized"
 
+    @allure.title("Test paseto_required before verifier setting")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_verifier_paseto_required_before_setting(self, app_without_verifier):
         with app_without_verifier.test_client() as c:
             res = c.post(
@@ -239,6 +255,8 @@ class TestPasetoVerifier:
             )
             assert res.status_code == 500
 
+    @allure.title("Test verifier with invalid SKEW config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "skew, msg",
         [
@@ -264,6 +282,8 @@ class TestPasetoVerifier:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test verifier with invalid DESERIALIZER config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "deserializer, msg",
         [
@@ -288,6 +308,8 @@ class TestPasetoVerifier:
             pytest.fail("init_app() must fail.")
         assert msg in str(err.value)
 
+    @allure.title("Test verifier with invalid PUBLIC_KEYS config")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize(
         "keys, msg",
         [

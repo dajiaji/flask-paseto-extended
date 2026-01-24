@@ -1,6 +1,7 @@
 # flake8: noqa: E501
 import json
 
+import allure
 import flask
 import pytest
 from flask import jsonify, make_response
@@ -86,11 +87,16 @@ def app():
     return app
 
 
+@allure.feature("Integration")
+@allure.story("Issuer and Verifier Combined")
+@pytest.mark.integration
 class TestPasetoIssuerAndVerifier:
     """
     Tests for sample code (examples/issuer_and_verifier.py).
     """
 
+    @allure.title("Test issuer and verifier integration")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_issuer_and_verifier(self, app):
         with app.test_client() as c:
             res = c.post(
@@ -106,6 +112,8 @@ class TestPasetoIssuerAndVerifier:
             res = c.get("/logout", follow_redirects=True)
             assert res.status_code == 200
 
+    @allure.title("Test issuer and verifier without login")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_issuer_and_verifier_without_login(self, app):
         with app.test_client() as c:
             res = c.get("/protected")
