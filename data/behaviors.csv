@@ -1,6 +1,6 @@
 "BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
-"0","","0","Token Issuing","51","0","PasetoIssuer","0"
 "0","","0","Token Verification","23","0","PasetoVerifier","0"
+"0","","0","Token Issuing","51","0","PasetoIssuer","0"
+"0","","0","Login Management","22","0","PasetoLoginManager","0"
 "0","","0","Session Management","15","0","PasetoCookieSessionInterface","0"
 "0","","0","Integration","2","0","Issuer and Verifier Combined","0"
-"0","","0","Login Management","22","0","PasetoLoginManager","0"
