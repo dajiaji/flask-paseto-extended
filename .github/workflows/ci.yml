@@ -116,7 +116,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Run Trivy vulnerability scanner in fs mode (SARIF)
-      uses: aquasecurity/trivy-action@97e0b3872f55f89b95b2f65b3dbab56962816478 # v0.34.2
+      uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
       with:
         scan-type: 'fs'
         scan-ref: '.'
@@ -126,7 +126,7 @@ jobs:
         scanners: 'vuln,secret,license'
         exit-code: '0'
     - name: Generate Trivy SBOM (CycloneDX)
-      uses: aquasecurity/trivy-action@97e0b3872f55f89b95b2f65b3dbab56962816478 # v0.34.2
+      uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
       with:
         scan-type: 'fs'
         scan-ref: '.'
@@ -136,7 +136,7 @@ jobs:
         scanners: 'vuln,secret,license'
         exit-code: '0'
     - name: Generate Trivy SBOM (SPDX)
-      uses: aquasecurity/trivy-action@97e0b3872f55f89b95b2f65b3dbab56962816478 # v0.34.2
+      uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
       with:
         scan-type: 'fs'
         scan-ref: '.'
