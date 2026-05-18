@@ -1265,7 +1265,7 @@ wheels = [
 
 [[package]]
 name = "pyseto"
-version = "1.9.1"
+version = "1.9.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argon2-cffi" },
@@ -1273,9 +1273,9 @@ dependencies = [
     { name = "iso8601" },
     { name = "pycryptodomex" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/87/24/778932e72993b2feb9fcf8a809a4ef31ba68b62b1e3b8e8cc653b404882f/pyseto-1.9.1.tar.gz", hash = "sha256:678c41a00984736853038d78d02c70e65d125f72d5f4505ea7332f24ffa13134", size = 73495, upload-time = "2025-12-29T13:47:43.739Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/65/fc/09c9ae630fc153762300631f2a22cc3450a1336b0d96f2d5df887b9991a9/pyseto-1.9.3.tar.gz", hash = "sha256:9ae2c3251683933947ca636e6dbf7afe45f7260ede5b893fc0cde331f8d92010", size = 74817, upload-time = "2026-05-14T20:36:16.725Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/44/c8008d4c9ed7f0f749d6fdad4f7b0a2aaf4715311853b59527de0ee3fd1f/pyseto-1.9.1-py3-none-any.whl", hash = "sha256:7f62c63412707fbfe22659b97aacfc3d4a692f99e04b356da744e04ba3464bd1", size = 30652, upload-time = "2025-12-29T13:47:42.622Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/90/e687efa8d32db8e32f74558c1ccb45320ab72297bd1a3eeb7136088fe12c/pyseto-1.9.3-py3-none-any.whl", hash = "sha256:55ff40fca84b1bc11729d3642e52659ab6a81d57b645b38f48ed9f5816ae8766", size = 30690, upload-time = "2026-05-14T20:36:14.917Z" },
 ]
 
 [[package]]
